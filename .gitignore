@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/EmbVSProjectGenerater/v16
+/Debug
+/x64/Debug
+/cpp.hint
+/text.txt
