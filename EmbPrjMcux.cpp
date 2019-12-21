@@ -46,6 +46,7 @@ int EmbPrjMcux::generater(void)
 	searchDefinitions();
 	searchIncludePaths();
 	searchSourseItems();
+	mcux11_1_0_LaterVersion();
 	slnGenerate();
 	vcxprojGenerate();
 	filtersGenerate();
@@ -63,7 +64,7 @@ int EmbPrjMcux::cmakeGenner(void)
 		cout << "CMakeLists.txt exists" << " overwrite?(y/n):";
 		contiuos = getchar();
 	}
-	if (contiuos!='y')
+	if (contiuos != 'y')
 	{
 		return 0;
 	}
@@ -233,6 +234,11 @@ int EmbPrjMcux::file_exists(const char* filename)
 	return (_access(filename, 0) == 0);
 }
 
+void EmbPrjMcux::mcux11_1_0_LaterVersion(void)
+{
+	//已经在searchDefinitions完成了对新版本的处理
+}
+
 void EmbPrjMcux::searchDefinitions(void)
 {
 	XMLDocument ewp;
@@ -332,6 +338,12 @@ void EmbPrjMcux::searchDefinitions(void)
 	while (subElement != nullptr)
 	{
 		str = subElement->Attribute("value");
+
+		if (str.find("$") != string::npos)
+		{
+			replace_str(str, "\"${workspace_loc:/${ProjName}/", "");
+			replace_str(str, "}\"", "");
+		}
 		replace_str(str, "../", "");
 		addIncludePaths(str);
 		//cout << str << endl;

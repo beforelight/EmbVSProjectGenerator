@@ -11,6 +11,8 @@ public:
 	int cmakeGenner(void);
 	static int file_exists(const char* filename);
 protected:
+	void mcux11_1_0_LaterVersion(void);
+
 	//预处理器定义
 	emb_virtual void searchDefinitions(void);
 

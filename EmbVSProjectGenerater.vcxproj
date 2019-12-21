@@ -197,9 +197,6 @@
     <ResourceCompile Include="EmbVSProjectGenerater.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Downloads\bitbug_favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="x64\Debug\resource\CmakeConfig.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

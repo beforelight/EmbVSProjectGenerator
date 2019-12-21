@@ -36,8 +36,7 @@ int main(int argc, char* argv[], char* envp[])
 	else if (rec_path.find(".project") != string::npos|| rec_path.find(".cproject") != string::npos)
 	{
 		EmbPrjMcux xxxxx(rec_path, argv[0]);
-		xxxxx.generater();
-		return xxxxx.cmakeGenner();
+		return xxxxx.generater();
 	}
 	else
 	{

@@ -42,6 +42,7 @@ protected:
 	string& getPath_exe(void);
 	set< string>& getPreprocessorDefinitions(void);
 	set< string>& getIncludePaths(void);
+	set< string>* pgetIncludePaths(void);
 	set< string>& getSourseItems(void);
 private:
 	set< string> PreprocessorDefinitions;//预处理器定义

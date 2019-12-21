@@ -99,11 +99,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Downloads\bitbug_favicon.ico">
-      <Filter>资源文件</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <Xml Include="x64\Debug\resource\CmakeConfig.xml">
       <Filter>资源文件\resource</Filter>
     </Xml>

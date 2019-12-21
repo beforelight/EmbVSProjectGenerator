@@ -81,6 +81,11 @@ set<string>& EmbPrj::getIncludePaths(void)
 	// TODO: 在此处插入 return 语句
 }
 
+set<string>* EmbPrj::pgetIncludePaths(void)
+{
+	return &IncludePaths;
+}
+
 set<string>& EmbPrj::getSourseItems(void)
 {
 	return SourseItems;
