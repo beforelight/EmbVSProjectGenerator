@@ -67,40 +67,23 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\EmbProjectTemplate.sln">
-      <Filter>资源文件\resource</Filter>
-    </None>
-    <None Include="resources\EmbProjectTemplate.vcxproj">
-      <Filter>资源文件\resource</Filter>
-    </None>
-    <None Include="resources\EmbProjectTemplate.vcxproj.filters">
-      <Filter>资源文件\resource</Filter>
-    </None>
-    <None Include="resources\EmbProjectTemplate.vcxproj.user">
-      <Filter>资源文件\resource</Filter>
-    </None>
-    <None Include="resources\hello_world.sln">
-      <Filter>资源文件\resource</Filter>
-    </None>
-    <None Include="resources\hello_world.vcxproj">
-      <Filter>资源文件\resource</Filter>
-    </None>
-    <None Include="resources\hello_world.vcxproj.filters">
-      <Filter>资源文件\resource</Filter>
-    </None>
-    <None Include="resources\hello_world.vcxproj.user">
-      <Filter>资源文件\resource</Filter>
-    </None>
     <None Include="cpp.hint" />
+    <None Include="resource\EmbProjectTemplate.sln">
+      <Filter>资源文件\resource</Filter>
+    </None>
+    <None Include="resource\EmbProjectTemplate.vcxproj">
+      <Filter>资源文件\resource</Filter>
+    </None>
+    <None Include="resource\EmbProjectTemplate.vcxproj.filters">
+      <Filter>资源文件\resource</Filter>
+    </None>
+    <None Include="resource\EmbProjectTemplate.vcxproj.user">
+      <Filter>资源文件\resource</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="EmbVSProjectGenerator.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="x64\Debug\resource\CmakeConfig.xml">
-      <Filter>资源文件\resource</Filter>
-    </Xml>
   </ItemGroup>
 </Project>

@@ -3,21 +3,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommand>$(TargetPath)</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>C:\Users\17616\Documents\MCUXpressoIDE_11.1.0_3209\workspace\FET1052_32M_bootloader\.cproject</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>C:\Users\17616\Documents\SDK_2.7.0_MIMXRT1052xxxxB\boards\evkbimxrt1050\driver_examples\adc\polling\iar\adc_12b1msps_sar_polling.eww</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerCommand>$(TargetPath)</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>C:\Users\17616\Documents\MCUXpressoIDE_11.1.0_3209\workspace\FET1052_32M_bootloader\.cproject</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>C:\Users\17616\Documents\SDK_2.7.0_MIMXRT1052xxxxB\boards\evkbimxrt1050\driver_examples\adc\polling\iar\adc_12b1msps_sar_polling.eww</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommand>$(TargetPath)</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>C:\Users\17616\Documents\MCUXpressoIDE_11.1.0_3209\workspace\FET1052_32M_bootloader\.cproject</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>C:\Users\17616\Documents\SDK_2.7.0_MIMXRT1052xxxxB\boards\evkbimxrt1050\driver_examples\adc\polling\iar\adc_12b1msps_sar_polling.eww</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerCommand>$(TargetPath)</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>C:\Users\17616\Documents\MCUXpressoIDE_11.1.0_3209\workspace\FET1052_32M_bootloader\.cproject</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>C:\Users\17616\Documents\SDK_2.7.0_MIMXRT1052xxxxB\boards\evkbimxrt1050\driver_examples\adc\polling\iar\adc_12b1msps_sar_polling.eww</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

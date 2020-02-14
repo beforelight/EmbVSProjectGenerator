@@ -184,20 +184,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
-    <None Include="resources\EmbProjectTemplate.sln" />
-    <None Include="resources\EmbProjectTemplate.vcxproj" />
-    <None Include="resources\EmbProjectTemplate.vcxproj.filters" />
-    <None Include="resources\EmbProjectTemplate.vcxproj.user" />
-    <None Include="resources\hello_world.sln" />
-    <None Include="resources\hello_world.vcxproj" />
-    <None Include="resources\hello_world.vcxproj.filters" />
-    <None Include="resources\hello_world.vcxproj.user" />
+    <None Include="resource\EmbProjectTemplate.sln" />
+    <None Include="resource\EmbProjectTemplate.vcxproj" />
+    <None Include="resource\EmbProjectTemplate.vcxproj.filters" />
+    <None Include="resource\EmbProjectTemplate.vcxproj.user" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="EmbVSProjectGenerator.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="x64\Debug\resource\CmakeConfig.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
