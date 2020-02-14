@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1D19CF68-BFD2-4BE7-AE15-542AA45E9595}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>EmbVSProjectGenerater</RootNamespace>
+    <RootNamespace>EmbVSProjectGenerator</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -159,7 +159,7 @@
     <ClCompile Include="EmbPrjIar.cpp" />
     <ClCompile Include="EmbPrjKeil.cpp" />
     <ClCompile Include="EmbPrjMcux.cpp" />
-    <ClCompile Include="EmbVSProjectGenerater.cpp" />
+    <ClCompile Include="EmbVSProjectGenerator.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -194,7 +194,7 @@
     <None Include="resources\hello_world.vcxproj.user" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="EmbVSProjectGenerater.rc" />
+    <ResourceCompile Include="EmbVSProjectGenerator.rc" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="x64\Debug\resource\CmakeConfig.xml" />

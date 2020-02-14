@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmbVSProjectGenerater", "EmbVSProjectGenerater.vcxproj", "{1D19CF68-BFD2-4BE7-AE15-542AA45E9595}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmbVSProjectGenerator", "EmbVSProjectGenerator.vcxproj", "{1D19CF68-BFD2-4BE7-AE15-542AA45E9595}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

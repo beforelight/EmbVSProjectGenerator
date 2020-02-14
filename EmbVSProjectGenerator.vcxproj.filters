@@ -21,7 +21,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EmbVSProjectGenerater.cpp">
+    <ClCompile Include="EmbVSProjectGenerator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -94,7 +94,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="EmbVSProjectGenerater.rc">
+    <ResourceCompile Include="EmbVSProjectGenerator.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>

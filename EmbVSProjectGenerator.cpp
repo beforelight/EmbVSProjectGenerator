@@ -9,7 +9,9 @@ using namespace std;
 using namespace tinyxml2;
 int main(int argc, char* argv[], char* envp[])
 {
+	system("chcp 65001");//修改控制台编码为utf8
 	string rec_path;
+	//cout << "中文测试" << endl;
 	printf("Total %d arguments\n", argc);
 	if (argc <= 1)
 	{
@@ -33,14 +35,14 @@ int main(int argc, char* argv[], char* envp[])
 		EmbPrjKeil ashhyuhjyt(rec_path, argv[0]);
 		return ashhyuhjyt.generater();
 	}
-	else if (rec_path.find(".project") != string::npos|| rec_path.find(".cproject") != string::npos)
+	else if (rec_path.find(".project") != string::npos || rec_path.find(".cproject") != string::npos)
 	{
 		EmbPrjMcux xxxxx(rec_path, argv[0]);
 		return xxxxx.generater();
 	}
 	else
 	{
-		cout << "输入正确的路径" << endl;
+		cout << "输入正确路径" << endl;
 	}
 	system("pause");
 	return 0;
