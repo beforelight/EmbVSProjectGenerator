@@ -27,18 +27,18 @@ int main(int argc, char* argv[], char* envp[])
 	cout << rec_path << endl;
 	if (rec_path.find(".eww") != string::npos)
 	{
-		EmbPrjIar proobj(rec_path, argv[0]);
-		return proobj.generater();
+		EmbPrjIar prj_iar(rec_path, argv[0]);
+		return prj_iar.generater();
 	}
 	else if (rec_path.find(".uvprojx") != string::npos)
 	{
-		EmbPrjKeil ashhyuhjyt(rec_path, argv[0]);
-		return ashhyuhjyt.generater();
+		EmbPrjKeil prj_mdk(rec_path, argv[0]);
+		return prj_mdk.generater();
 	}
 	else if (rec_path.find(".project") != string::npos || rec_path.find(".cproject") != string::npos)
 	{
-		EmbPrjMcux xxxxx(rec_path, argv[0]);
-		return xxxxx.generater();
+		EmbPrjMcux prj_mcux(rec_path, argv[0]);
+		return prj_mcux.generater();
 	}
 	else
 	{

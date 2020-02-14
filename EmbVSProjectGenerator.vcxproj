@@ -183,7 +183,6 @@
     <ClInclude Include="tinyxml2\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cpp.hint" />
     <None Include="resource\EmbProjectTemplate.sln" />
     <None Include="resource\EmbProjectTemplate.vcxproj" />
     <None Include="resource\EmbProjectTemplate.vcxproj.filters" />

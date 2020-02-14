@@ -8,10 +8,10 @@ public:
 	EmbPrjMcux(string path_project_, string path_exe_);
 	~EmbPrjMcux(void);
 	int generater(void);
-	int cmakeGenner(void);
+	int cmakeGenner(void);//转cmake代码
 	static int file_exists(const char* filename);
 protected:
-	void mcux11_1_0_LaterVersion(void);
+	void mcux11_1_0_LaterVersion(void);//新版mcux补丁
 
 	//预处理器定义
 	emb_virtual void searchDefinitions(void);
@@ -22,8 +22,8 @@ protected:
 	//源文件
 	emb_virtual void searchSourseItems(void);
 
-	void searchCmake(void);
-	void searchDefDebugRelease(void);
+	void searchCmake(void);//转cmake代码
+	void searchDefDebugRelease(void);//转cmake代码
 private:
 	set<string> sourceEntries;
 	string path_project;
@@ -33,7 +33,7 @@ private:
 	set< string> DefDebug;//预处理器定义
 	set< string> DefRelease;//预处理器定义
 
-
+	//转cmake代码
 	const string cmakexml = "\\resource\\CmakeConfig.xml";
 	set< string> cmake_asm_flags_debug;
 	set< string> cmake_asm_flags_release;
