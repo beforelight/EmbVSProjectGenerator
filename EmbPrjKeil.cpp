@@ -8,7 +8,7 @@ EmbPrjKeil::EmbPrjKeil(string path_uvprojx_, string path_exe_)
 	int b = path_uvprojx_.find_last_of('/');
 	int c = path_uvprojx_.find_last_of('.');
 	a = _Max_value(a, b);
-	string path = path_uvprojx_.substr(0, a + 1);//°üº¬×îºóµÄÄÇ¸ö'/'
+	string path = path_uvprojx_.substr(0, a + 1);//åŒ…å«æœ€åŽçš„é‚£ä¸ª'/'
 	string name = path_uvprojx_.substr(a + 1, c - a - 1);
 	setPathProjectName(path, name);
 
@@ -21,12 +21,12 @@ EmbPrjKeil::EmbPrjKeil(string path_uvprojx_, string path_exe_)
 	XMLElement* subElement;
 	ewp.LoadFile(path_uvprojx.c_str());
 	titleElement = ewp.FirstChildElement("Project");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
-	//ÕÒµ½debugÄÇÒ»À¸
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	//æ‰¾åˆ°debugé‚£ä¸€æ 
 	titleElement = titleElement->FirstChildElement("Targets");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	titleElement = titleElement->FirstChildElement("Target");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	subElement = titleElement->FirstChildElement("pCCUsed");
 	string aaaa(subElement->GetText());
 	a = aaaa.find_first_of(":");
@@ -57,14 +57,14 @@ emb_virtual void EmbPrjKeil::searchDefinitions(void)
 	XMLElement* titleElement;
 	XMLElement* subElement;
 	ewp.LoadFile(path_uvprojx.c_str());
-	titleElement = ewp.FirstChildElement("Project"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("Targets"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("Target"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("TargetOption"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("TargetArmAds"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("Cads"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("VariousControls"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	subElement = titleElement->FirstChildElement("Define"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	titleElement = ewp.FirstChildElement("Project"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("Targets"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("Target"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("TargetOption"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("TargetArmAds"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("Cads"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("VariousControls"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	subElement = titleElement->FirstChildElement("Define"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	string str(subElement->GetText());
 	replace_str(str, ",", " ");
 	stringstream strr(str);
@@ -75,7 +75,7 @@ emb_virtual void EmbPrjKeil::searchDefinitions(void)
 	}
 
 	//void EmbPrjKeil::searchIncludePaths(void)
-	subElement = titleElement->FirstChildElement("IncludePath"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = titleElement->FirstChildElement("IncludePath"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	string str2(subElement->GetText());
 	replace_str(str2, ";", " ");
 	stringstream strr2(str2);
@@ -89,7 +89,7 @@ emb_virtual void EmbPrjKeil::searchDefinitions(void)
 
 void EmbPrjKeil::searchIncludePaths(void)
 {
-	//ÒÑ¾­ÔÚsearchDefinitionsÊµÏÖÁË
+	//å·²ç»åœ¨searchDefinitionså®žçŽ°äº†
 }
 
 void EmbPrjKeil::searchSourseItems(void)
@@ -98,16 +98,16 @@ void EmbPrjKeil::searchSourseItems(void)
 	XMLElement* titleElement;
 	XMLElement* subElement;
 	ewp.LoadFile(path_uvprojx.c_str());
-	titleElement = ewp.FirstChildElement("Project"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("Targets"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("Target"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("Groups"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("Group"); emb_assert(titleElement, "¸ñÊ½´íÎó");
+	titleElement = ewp.FirstChildElement("Project"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("Targets"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("Target"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("Groups"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("Group"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	while (titleElement!=nullptr)
 	{
 		if (titleElement->FirstChildElement("Files"))
 		{
-			subElement = titleElement->FirstChildElement("Files")->FirstChildElement("File"); emb_assert(subElement, "¸ñÊ½´íÎó");
+			subElement = titleElement->FirstChildElement("Files")->FirstChildElement("File"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 			while (subElement != nullptr)
 			{
 				string str(subElement->FirstChildElement("FilePath")->GetText());

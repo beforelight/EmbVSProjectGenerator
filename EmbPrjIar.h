@@ -4,19 +4,19 @@ class EmbPrjIar :
 	public EmbPrj
 {
 public:
-	//.ewwµÄÍêÕûÂ·¾¶
+	//.ewwçš„å®Œæ•´è·¯å¾„
 	EmbPrjIar(string path_eww_, string path_exe_);
 	~EmbPrjIar(void);
 	int generater(void);
 
 protected:
-	//Ô¤´¦ÀíÆ÷¶¨Òå
+	//é¢„å¤„ç†å™¨å®šä¹‰
 	emb_virtual void searchDefinitions(void);
 
-	//includeÄ¿Â¼
+	//includeç›®å½•
 	emb_virtual  void searchIncludePaths(void);
 
-	//Ô´ÎÄ¼ş
+	//æºæ–‡ä»¶
 	emb_virtual void searchSourseItems(void);
 
 private:

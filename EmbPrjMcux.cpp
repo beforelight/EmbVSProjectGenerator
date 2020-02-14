@@ -9,7 +9,7 @@ EmbPrjMcux::EmbPrjMcux(string path_project_, string path_exe_)
 	int b = path_project_.find_last_of('/');
 	int c = path_project_.find_last_of('.');
 	a = _Max_value(a, b);
-	string path = path_project_.substr(0, a + 1);//°üº¬×îºóµÄÄÇ¸ö'/'
+	string path = path_project_.substr(0, a + 1);//åŒ…å«æœ€åçš„é‚£ä¸ª'/'
 	string name;
 	if (path_project_.find(".project") != string::npos)
 	{
@@ -19,7 +19,7 @@ EmbPrjMcux::EmbPrjMcux(string path_project_, string path_exe_)
 	}
 	else
 	{
-		emb_assert(NULL, "¸ñÊ½´íÎó");
+		emb_assert(NULL, "æ ¼å¼é”™è¯¯");
 	}
 	path_project = path + ".project";
 	path_cproject = path + ".cproject";
@@ -29,8 +29,8 @@ EmbPrjMcux::EmbPrjMcux(string path_project_, string path_exe_)
 	XMLElement* titleElement;
 	XMLElement* subElement;
 	ewp.LoadFile(path_project.c_str());
-	titleElement = ewp.FirstChildElement("projectDescription"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("name"); emb_assert(titleElement, "¸ñÊ½´íÎó");
+	titleElement = ewp.FirstChildElement("projectDescription"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("name"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	name = titleElement->GetText();
 	setPathProjectName(path, name);
 	addPreprocessorDefinitions("__ARMVFP__");
@@ -56,7 +56,7 @@ int EmbPrjMcux::generater(void)
 
 int EmbPrjMcux::cmakeGenner(void)
 {
-	//ÏÈÅĞ¶Ï´æÔÚ²»
+	//å…ˆåˆ¤æ–­å­˜åœ¨ä¸
 	char contiuos = 'y';
 	if (file_exists((getProjectDirectory() + "CMakeLists.txt").c_str()))
 	{
@@ -68,13 +68,13 @@ int EmbPrjMcux::cmakeGenner(void)
 	{
 		return 0;
 	}
-	else//Èç¹û²»´æÔÚ¾Í¿ªÊ¼Éú³É
+	else//å¦‚æœä¸å­˜åœ¨å°±å¼€å§‹ç”Ÿæˆ
 	{
 		searchCmake();
 		ofstream cmake(getProjectDirectory() + "CMakeLists.txt");
-		emb_assert(cmake.is_open(), "ÎÄ¼ş´ò²»¿ª");
+		emb_assert(cmake.is_open(), "æ–‡ä»¶æ‰“ä¸å¼€");
 		ofstream armgcc(getProjectDirectory() + "armgcc.cmake");
-		emb_assert(armgcc.is_open(), "ÎÄ¼ş´ò²»¿ª");
+		emb_assert(armgcc.is_open(), "æ–‡ä»¶æ‰“ä¸å¼€");
 		cmake << R"(MESSAGE("***Generaation Path=Debug or Release***"))" << endl;
 		cmake << R"(MESSAGE("***Please set ARMGCC_DIR in envionment variables***"))" << endl;
 		cmake << R"(MESSAGE("***example ARMGCC_DIR=C:\nxp\MCUXpressoIDE_11.0.1_2563\ide\tools ***"))" << endl;
@@ -236,7 +236,7 @@ int EmbPrjMcux::file_exists(const char* filename)
 
 void EmbPrjMcux::mcux11_1_0_LaterVersion(void)
 {
-	//ÒÑ¾­ÔÚsearchDefinitionsÍê³ÉÁË¶ÔĞÂ°æ±¾µÄ´¦Àí
+	//å·²ç»åœ¨searchDefinitionså®Œæˆäº†å¯¹æ–°ç‰ˆæœ¬çš„å¤„ç†
 }
 
 void EmbPrjMcux::searchDefinitions(void)
@@ -246,15 +246,15 @@ void EmbPrjMcux::searchDefinitions(void)
 	XMLElement* subElement;
 	string str;
 	ewp.LoadFile(path_cproject.c_str());
-	titleElement = ewp.FirstChildElement("cproject"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("storageModule"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("cconfiguration"); emb_assert(titleElement, "¸ñÊ½´íÎó");
+	titleElement = ewp.FirstChildElement("cproject"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("storageModule"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("cconfiguration"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	str = titleElement->Attribute("id");
-	//ÕÒdebuG¹¤³Ì
+	//æ‰¾debuGå·¥ç¨‹
 	while (str.find("debug") == string::npos)
 	{
 		titleElement = titleElement->NextSiblingElement("cconfiguration");
-		//emb_assert(titleElement, "¸ñÊ½´íÎó");
+		//emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		if (titleElement == nullptr)
 		{
 			titleElement = ewp.FirstChildElement("cproject")
@@ -265,16 +265,16 @@ void EmbPrjMcux::searchDefinitions(void)
 		str = titleElement->Attribute("id");
 	}
 
-	subElement = titleElement->FirstChildElement("storageModule"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = titleElement->FirstChildElement("storageModule"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	str = subElement->Attribute("moduleId");
-	//ÕÒbuildÑ¡Ïî
+	//æ‰¾buildé€‰é¡¹
 	while (str.find("cdtBuildSystem") == string::npos)
 	{
 		subElement = subElement->NextSiblingElement("storageModule");
-		//emb_assert(titleElement, "¸ñÊ½´íÎó");
+		//emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		if (titleElement == nullptr)
 		{
-			subElement = titleElement->FirstChildElement("storageModule"); emb_assert(subElement, "¸ñÊ½´íÎó");
+			subElement = titleElement->FirstChildElement("storageModule"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 			break;
 		}
 		str = subElement->Attribute("moduleId");
@@ -285,20 +285,20 @@ void EmbPrjMcux::searchDefinitions(void)
 	titleElement = titleElement->FirstChildElement("toolChain");
 	subElement = titleElement->FirstChildElement("tool");
 	str = subElement->Attribute("name");
-	//ÕÒcÓïÑÔ±àÒëÆ÷
+	//æ‰¾cè¯­è¨€ç¼–è¯‘å™¨
 	while (str.find("MCU C Compiler") == string::npos)
 	{
 		subElement = subElement->NextSiblingElement("tool");
 		if (titleElement == nullptr)
 		{
-			subElement = titleElement->FirstChildElement("tool"); emb_assert(subElement, "¸ñÊ½´íÎó");
+			subElement = titleElement->FirstChildElement("tool"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 			break;
 		}
 		str = subElement->Attribute("name");
 	}
 
 	titleElement = subElement;
-	//¿ªÊ¼²éÑ¯Ô¤´¦Àí¶¨Òå
+	//å¼€å§‹æŸ¥è¯¢é¢„å¤„ç†å®šä¹‰
 	subElement = titleElement->FirstChildElement("option");
 	str = subElement->Attribute("id");
 	while (str.find("preprocessor.def.symbols") == string::npos)
@@ -306,12 +306,12 @@ void EmbPrjMcux::searchDefinitions(void)
 		subElement = subElement->NextSiblingElement("option");
 		if (titleElement == nullptr)
 		{
-			subElement = titleElement->FirstChildElement("option"); emb_assert(subElement, "¸ñÊ½´íÎó");
+			subElement = titleElement->FirstChildElement("option"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 			break;
 		}
 		str = subElement->Attribute("id");
 	}
-	//Ìí¼ÓÔ¤´¦Àí¶¨Òå
+	//æ·»åŠ é¢„å¤„ç†å®šä¹‰
 	subElement = subElement->FirstChildElement("listOptionValue");
 	while (subElement != nullptr)
 	{
@@ -320,7 +320,7 @@ void EmbPrjMcux::searchDefinitions(void)
 		subElement = subElement->NextSiblingElement("listOptionValue");
 	}
 
-	//¿ªÊ¼²éÑ¯incÄ¿Â¼
+	//å¼€å§‹æŸ¥è¯¢incç›®å½•
 	subElement = titleElement->FirstChildElement("option");
 	str = subElement->Attribute("id");
 	while (str.find("compiler.option.include.paths") == string::npos)
@@ -328,12 +328,12 @@ void EmbPrjMcux::searchDefinitions(void)
 		subElement = subElement->NextSiblingElement("option");
 		if (titleElement == nullptr)
 		{
-			subElement = titleElement->FirstChildElement("option"); emb_assert(subElement, "¸ñÊ½´íÎó");
+			subElement = titleElement->FirstChildElement("option"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 			break;
 		}
 		str = subElement->Attribute("id");
 	}
-	//Ìí¼ÓincÄ¿Â¼
+	//æ·»åŠ incç›®å½•
 	subElement = subElement->FirstChildElement("listOptionValue");
 	while (subElement != nullptr)
 	{
@@ -356,7 +356,7 @@ void EmbPrjMcux::searchDefinitions(void)
 
 void EmbPrjMcux::searchIncludePaths(void)
 {
-	//ÓÉsearchDefinitionsÍê³ÉÁË
+	//ç”±searchDefinitionså®Œæˆäº†
 }
 
 void EmbPrjMcux::searchSourseItems(void)
@@ -366,15 +366,15 @@ void EmbPrjMcux::searchSourseItems(void)
 	XMLElement* subElement;
 	string str;
 	ewp.LoadFile(path_cproject.c_str());
-	titleElement = ewp.FirstChildElement("cproject"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("storageModule"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("cconfiguration"); emb_assert(titleElement, "¸ñÊ½´íÎó");
+	titleElement = ewp.FirstChildElement("cproject"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("storageModule"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("cconfiguration"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	str = titleElement->Attribute("id");
-	//ÕÒdebuG¹¤³Ì
+	//æ‰¾debuGå·¥ç¨‹
 	while (str.find("debug") == string::npos)
 	{
 		titleElement = titleElement->NextSiblingElement("cconfiguration");
-		//emb_assert(titleElement, "¸ñÊ½´íÎó");
+		//emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		if (titleElement == nullptr)
 		{
 			titleElement = ewp.FirstChildElement("cproject")
@@ -385,16 +385,16 @@ void EmbPrjMcux::searchSourseItems(void)
 		str = titleElement->Attribute("id");
 	}
 
-	subElement = titleElement->FirstChildElement("storageModule"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = titleElement->FirstChildElement("storageModule"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	str = subElement->Attribute("moduleId");
-	//ÕÒbuildÑ¡Ïî
+	//æ‰¾buildé€‰é¡¹
 	while (str.find("cdtBuildSystem") == string::npos)
 	{
 		subElement = subElement->NextSiblingElement("storageModule");
-		//emb_assert(titleElement, "¸ñÊ½´íÎó");
+		//emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		if (titleElement == nullptr)
 		{
-			subElement = titleElement->FirstChildElement("storageModule"); emb_assert(subElement, "¸ñÊ½´íÎó");
+			subElement = titleElement->FirstChildElement("storageModule"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 			break;
 		}
 		str = subElement->Attribute("moduleId");
@@ -430,7 +430,7 @@ void EmbPrjMcux::searchSourseItems(void)
 
 void EmbPrjMcux::searchCmake(void)
 {
-	//Ìî³äÒÔÏÂ
+	//å¡«å……ä»¥ä¸‹
 	//set< string> cmake_asm_flags_debug;
 	//set< string> cmake_asm_flags_release;
 	//set< string> cmake_c_flags_debug;
@@ -441,7 +441,7 @@ void EmbPrjMcux::searchCmake(void)
 	//set< string> cmake_exe_linker_flags_release;
 	//set< string> target_link_libraries;
 
-	//Ê×ÏÈÈ·¶¨ÊÇÄÄ¸öcpu,¼ì²éPreprocessorDefinitions
+	//é¦–å…ˆç¡®å®šæ˜¯å“ªä¸ªcpu,æ£€æŸ¥PreprocessorDefinitions
 	string cpu;
 	for (auto i : getPreprocessorDefinitions())
 	{
@@ -457,8 +457,8 @@ void EmbPrjMcux::searchCmake(void)
 	XMLElement* targetElement;
 	string str;
 	ewp.LoadFile((getPath_exe() + cmakexml).c_str());
-	titleElement = ewp.FirstChildElement("Document"); emb_assert(titleElement, "¸ñÊ½´íÎó");
-	titleElement = titleElement->FirstChildElement("target"); emb_assert(titleElement, "¸ñÊ½´íÎó");
+	titleElement = ewp.FirstChildElement("Document"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	titleElement = titleElement->FirstChildElement("target"); emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	str = titleElement->Attribute("cpu");
 	while (str.find(cpu) == string::npos)
 	{
@@ -471,10 +471,10 @@ void EmbPrjMcux::searchCmake(void)
 		str = titleElement->Attribute("cpu");
 	}
 	targetElement = titleElement;
-	//ÒÑ¾­È·¶¨ºÃÊ¹ÄÄ¸öcpuÁË£¬¿ªÊ¼´¦Àí
+	//å·²ç»ç¡®å®šå¥½ä½¿å“ªä¸ªcpuäº†ï¼Œå¼€å§‹å¤„ç†
 
 	//set< string> cmake_asm_flags_debug;
-	subElement = targetElement->FirstChildElement("CMAKE_ASM_FLAGS_DEBUG"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_ASM_FLAGS_DEBUG"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{
@@ -483,7 +483,7 @@ void EmbPrjMcux::searchCmake(void)
 	}
 
 	//set< string> cmake_asm_flags_release;
-	subElement = targetElement->FirstChildElement("CMAKE_ASM_FLAGS_RELEASE"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_ASM_FLAGS_RELEASE"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{
@@ -491,11 +491,11 @@ void EmbPrjMcux::searchCmake(void)
 		subElement = subElement->NextSiblingElement("item");
 	}
 
-	//´ÓÔª¹¤³Ì»ñÈ¡Ô¤¶¨Òå
+	//ä»å…ƒå·¥ç¨‹è·å–é¢„å®šä¹‰
 	searchDefDebugRelease();
 
 	//set< string> cmake_c_flags_debug;
-	subElement = targetElement->FirstChildElement("CMAKE_C_FLAGS_DEBUG"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_C_FLAGS_DEBUG"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("def");
 	while (subElement != nullptr)
 	{
@@ -509,7 +509,7 @@ void EmbPrjMcux::searchCmake(void)
 	{
 		cmake_c_flags_debug.insert("-D" + i);
 	}
-	subElement = targetElement->FirstChildElement("CMAKE_C_FLAGS_DEBUG"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_C_FLAGS_DEBUG"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{
@@ -519,7 +519,7 @@ void EmbPrjMcux::searchCmake(void)
 
 
 	//set< string> cmake_c_flags_release;
-	subElement = targetElement->FirstChildElement("CMAKE_C_FLAGS_RELEASE"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_C_FLAGS_RELEASE"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("def");
 	while (subElement != nullptr)
 	{
@@ -532,7 +532,7 @@ void EmbPrjMcux::searchCmake(void)
 	{
 		cmake_c_flags_release.insert("-D" + i);
 	}
-	subElement = targetElement->FirstChildElement("CMAKE_C_FLAGS_RELEASE"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_C_FLAGS_RELEASE"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{
@@ -540,7 +540,7 @@ void EmbPrjMcux::searchCmake(void)
 		subElement = subElement->NextSiblingElement("item");
 	}
 	//set< string> cmake_cxx_flags_debug;
-	subElement = targetElement->FirstChildElement("CMAKE_CXX_FLAGS_DEBUG"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_CXX_FLAGS_DEBUG"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("def");
 	while (subElement != nullptr)
 	{
@@ -551,7 +551,7 @@ void EmbPrjMcux::searchCmake(void)
 	{
 		cmake_cxx_flags_debug.insert("-D" + i);
 	}
-	subElement = targetElement->FirstChildElement("CMAKE_CXX_FLAGS_DEBUG"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_CXX_FLAGS_DEBUG"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{
@@ -559,7 +559,7 @@ void EmbPrjMcux::searchCmake(void)
 		subElement = subElement->NextSiblingElement("item");
 	}
 	//set< string> cmake_cxx_flags_release;
-	subElement = targetElement->FirstChildElement("CMAKE_CXX_FLAGS_RELEASE"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_CXX_FLAGS_RELEASE"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("def");
 	while (subElement != nullptr)
 	{
@@ -570,7 +570,7 @@ void EmbPrjMcux::searchCmake(void)
 	{
 		cmake_cxx_flags_release.insert("-D" + i);
 	}
-	subElement = targetElement->FirstChildElement("CMAKE_CXX_FLAGS_RELEASE"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_CXX_FLAGS_RELEASE"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{
@@ -579,7 +579,7 @@ void EmbPrjMcux::searchCmake(void)
 	}
 
 	//set< string> cmake_exe_linker_flags_debug;
-	subElement = targetElement->FirstChildElement("CMAKE_EXE_LINKER_FLAGS_DEBUG"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_EXE_LINKER_FLAGS_DEBUG"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{
@@ -588,7 +588,7 @@ void EmbPrjMcux::searchCmake(void)
 	}
 
 	//set< string> cmake_exe_linker_flags_release;
-	subElement = targetElement->FirstChildElement("CMAKE_EXE_LINKER_FLAGS_RELEASE"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("CMAKE_EXE_LINKER_FLAGS_RELEASE"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{
@@ -597,7 +597,7 @@ void EmbPrjMcux::searchCmake(void)
 	}
 
 	//set< string> target_link_libraries;
-	subElement = targetElement->FirstChildElement("TARGET_LINK_LIBRARIES"); emb_assert(subElement, "¸ñÊ½´íÎó");
+	subElement = targetElement->FirstChildElement("TARGET_LINK_LIBRARIES"); emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	subElement = subElement->FirstChildElement("item");
 	while (subElement != nullptr)
 	{

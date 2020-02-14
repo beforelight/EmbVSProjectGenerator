@@ -13,20 +13,20 @@ public:
 	~EmbPrj();
 	void setPathExe(string path);
 
-	//Directory°üº¬×îºóµÄÄÇ¸ö'/'
+	//DirectoryåŒ…å«æœ€åçš„é‚£ä¸ª'/'
 	void setPathProjectName(string Directory, string name);
 	int generater(void);
 protected:
-	//Ô¤´¦ÀíÆ÷¶¨Òå
+	//é¢„å¤„ç†å™¨å®šä¹‰
 	emb_virtual void searchDefinitions(void);
 
-	//includeÄ¿Â¼
+	//includeç›®å½•
 	emb_virtual  void searchIncludePaths(void);
 
-	//Ô´ÎÄ¼ş
+	//æºæ–‡ä»¶
 	emb_virtual void searchSourseItems(void);
 
-	//Éú³É
+	//ç”Ÿæˆ
 	int slnGenerate(void);
 	int vcxprojGenerate(void);
 	int filtersGenerate(void);
@@ -34,7 +34,7 @@ protected:
 protected:
 	void addPreprocessorDefinitions(string def);
 
-	//²»ĞèÒª¿ªÍ·ÄÇ¸ö"/"
+	//ä¸éœ€è¦å¼€å¤´é‚£ä¸ª"/"
 	void addIncludePaths(string inc);
 	void addSourseItems(string src);
 	string& getProjectDirectory(void);
@@ -45,18 +45,18 @@ protected:
 	set< string>* pgetIncludePaths(void);
 	set< string>& getSourseItems(void);
 private:
-	set< string> PreprocessorDefinitions;//Ô¤´¦ÀíÆ÷¶¨Òå
-	set< string> IncludePaths;//includeÄ¿Â¼
-	set< string> SourseItems;//Ô´ÎÄ¼ş
+	set< string> PreprocessorDefinitions;//é¢„å¤„ç†å™¨å®šä¹‰
+	set< string> IncludePaths;//includeç›®å½•
+	set< string> SourseItems;//æºæ–‡ä»¶
 
-	set< string> SourseGroup;//Ô´ÎÄ¼ş·Ö×é//ÖĞ¼ä±äÁ¿
+	set< string> SourseGroup;//æºæ–‡ä»¶åˆ†ç»„//ä¸­é—´å˜é‡
 	string path_exe;
-	string ProjectDirectory;//ÏîÄ¿Ä¿Â¼
-	string ProjectName;//ÏîÄ¿Ãû×Ö
+	string ProjectDirectory;//é¡¹ç›®ç›®å½•
+	string ProjectName;//é¡¹ç›®åå­—
 	const string resource = "\\resource\\";
 };
 
-class UniqueIdentifier//ÓÃÀ´Éú³É//<UniqueIdentifier>{dc2250e4-e44f-4b53-925e-f71d02f20bba}</UniqueIdentifier>ÀàËÆµÄ×Ö·û´®
+class UniqueIdentifier//ç”¨æ¥ç”Ÿæˆ//<UniqueIdentifier>{dc2250e4-e44f-4b53-925e-f71d02f20bba}</UniqueIdentifier>ç±»ä¼¼çš„å­—ç¬¦ä¸²
 	:public  string
 {
 public:

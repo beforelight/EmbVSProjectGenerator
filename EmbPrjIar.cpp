@@ -11,12 +11,12 @@ EmbPrjIar::EmbPrjIar(string path_eww_, string path_exe_)
 	int b = path_eww_.find_last_of('/');
 	int c = path_eww_.find_last_of('.');
 	a = _Max_value(a, b);
-	string path = path_eww_.substr(0, a + 1);//°üº¬×îºóµÄÄÇ¸ö'/'
+	string path = path_eww_.substr(0, a + 1);//åŒ…å«æœ€åçš„é‚£ä¸ª'/'
 	string name = path_eww_.substr(a + 1, c - a - 1);
 	setPathProjectName(path, name);
 
 	path_eww = path_eww_;
-	//´¦Àípath_ewp
+	//å¤„ç†path_ewp
 	XMLDocument eww;
 	eww.LoadFile(path_eww.c_str());
 	XMLElement* titleElement = eww.FirstChildElement("workspace")
@@ -41,16 +41,16 @@ void EmbPrjIar::searchDefinitions(void)
 	XMLElement* subElement;
 	ewp.LoadFile(path_ewp.c_str());
 	titleElement = ewp.FirstChildElement("project");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
-	//ÕÒµ½debugÄÇÒ»À¸
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	//æ‰¾åˆ°debugé‚£ä¸€æ 
 	titleElement = titleElement->FirstChildElement("configuration");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	subElement = titleElement->FirstChildElement("name");
 	// cout << subElement->GetText() <<  endl;
 	while (("debug" != string(subElement->GetText()))&& ("Debug" != string(subElement->GetText())))
 	{
 		titleElement = titleElement->NextSiblingElement("configuration");
-		//emb_assert(titleElement, "¸ñÊ½´íÎó");
+		//emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		if (titleElement == nullptr)
 		{
 			titleElement = ewp.FirstChildElement("project")->FirstChildElement("configuration");
@@ -59,33 +59,33 @@ void EmbPrjIar::searchDefinitions(void)
 		subElement = titleElement->FirstChildElement("name");
 	}
 
-	//ÕÒµ½ºê¶¨ÒåÄÇÒ»À¸
+	//æ‰¾åˆ°å®å®šä¹‰é‚£ä¸€æ 
 	titleElement = titleElement->FirstChildElement("settings");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	subElement = titleElement->FirstChildElement("name");
 	while ("ICCARM" != string(subElement->GetText()))
 	{
 		titleElement = titleElement->NextSiblingElement("settings");
-		emb_assert(titleElement, "¸ñÊ½´íÎó");
+		emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		subElement = titleElement->FirstChildElement("name");
 	}
 
-	//ÕÒµ½optionsÄÇÒ»À¸
+	//æ‰¾åˆ°optionsé‚£ä¸€æ 
 	titleElement = titleElement->FirstChildElement("data");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	titleElement = titleElement->FirstChildElement("option");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	subElement = titleElement->FirstChildElement("name");
 	while ("CCDefines" != string(subElement->GetText()))
 	{
 		titleElement = titleElement->NextSiblingElement("option");
-		emb_assert(titleElement, "¸ñÊ½´íÎó");
+		emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		subElement = titleElement->FirstChildElement("name");
 	}
 
-	//ÕÒµ½defÁË
+	//æ‰¾åˆ°defäº†
 	subElement = titleElement->FirstChildElement("state");
-	emb_assert(subElement, "¸ñÊ½´íÎó");
+	emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 	while (subElement)
 	{
 		// cout << subElement->GetText() <<  endl;
@@ -101,16 +101,16 @@ void EmbPrjIar::searchIncludePaths(void)
 	XMLElement* subElement;
 	ewp.LoadFile(path_ewp.c_str());
 	titleElement = ewp.FirstChildElement("project");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
-	//ÕÒµ½debugÄÇÒ»À¸
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
+	//æ‰¾åˆ°debugé‚£ä¸€æ 
 	titleElement = titleElement->FirstChildElement("configuration");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	subElement = titleElement->FirstChildElement("name");
 	// cout << subElement->GetText() <<  endl;
 	while (("debug" != string(subElement->GetText())) && ("Debug" != string(subElement->GetText())))
 	{
 		titleElement = titleElement->NextSiblingElement("configuration");
-		//emb_assert(titleElement, "¸ñÊ½´íÎó");
+		//emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		if (titleElement == nullptr)
 		{
 			titleElement = ewp.FirstChildElement("project")->FirstChildElement("configuration");
@@ -119,33 +119,33 @@ void EmbPrjIar::searchIncludePaths(void)
 		subElement = titleElement->FirstChildElement("name");
 	}
 
-	//ÕÒµ½ºê¶¨ÒåÄÇÒ»À¸
+	//æ‰¾åˆ°å®å®šä¹‰é‚£ä¸€æ 
 	titleElement = titleElement->FirstChildElement("settings");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	subElement = titleElement->FirstChildElement("name");
 	while ("ICCARM" != string(subElement->GetText()))
 	{
 		titleElement = titleElement->NextSiblingElement("settings");
-		emb_assert(titleElement, "¸ñÊ½´íÎó");
+		emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		subElement = titleElement->FirstChildElement("name");
 	}
 
-	//ÕÒµ½optionsÄÇÒ»À¸
+	//æ‰¾åˆ°optionsé‚£ä¸€æ 
 	titleElement = titleElement->FirstChildElement("data");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	titleElement = titleElement->FirstChildElement("option");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	subElement = titleElement->FirstChildElement("name");
 	while ("CCIncludePath2" != string(subElement->GetText()))
 	{
 		titleElement = titleElement->NextSiblingElement("option");
-		emb_assert(titleElement, "¸ñÊ½´íÎó");
+		emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 		subElement = titleElement->FirstChildElement("name");
 	}
 
-	//ÕÒµ½includeÁË
+	//æ‰¾åˆ°includeäº†
 	subElement = titleElement->FirstChildElement("state");
-	emb_assert(subElement, "¸ñÊ½´íÎó");
+	emb_assert(subElement, "æ ¼å¼é”™è¯¯");
 
 #define Text "$PROJ_DIR$/"
 	while (subElement)
@@ -169,23 +169,23 @@ void EmbPrjIar::searchSourseItems(void)
 	//XMLNode* subNode;
 	ewp.LoadFile(path_ewp.c_str());
 	titleElement = ewp.FirstChildElement("project");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	titleElement = titleElement->FirstChildElement("group");
-	emb_assert(titleElement, "¸ñÊ½´íÎó");
+	emb_assert(titleElement, "æ ¼å¼é”™è¯¯");
 	titleElement->Parent();
 
 	titleNode = ewp.FirstChildElement("project")->FirstChild();
-	while (strcmp(titleNode->Value(), "group"))//ÏàÍ¬Ê±ÊÇ·µ»Ø0
+	while (strcmp(titleNode->Value(), "group"))//ç›¸åŒæ—¶æ˜¯è¿”å›0
 	{
 		//printf(titleNode->Value());
 		//printf("\r\n");
 		titleNode = titleNode->NextSibling();
 	}
-	//ÏÖÔÚtitleNodeÒÑ¾­ÒÆ¶¯µ½µÚÒ»¸ögroupÉÏÃæÁË
-	//ËÑË÷·½Ïò
-	//1.´ÓÉÏÍùÏÂËÑË÷
-	//2.child²»»áÓöµ½¿Õ½Úµã£¬next»áÓöµ½¿Õ½Úµã
-	int next = 0;//ĞèÒªnext
+	//ç°åœ¨titleNodeå·²ç»ç§»åŠ¨åˆ°ç¬¬ä¸€ä¸ªgroupä¸Šé¢äº†
+	//æœç´¢æ–¹å‘
+	//1.ä»ä¸Šå¾€ä¸‹æœç´¢
+	//2.childä¸ä¼šé‡åˆ°ç©ºèŠ‚ç‚¹ï¼Œnextä¼šé‡åˆ°ç©ºèŠ‚ç‚¹
+	int next = 0;//éœ€è¦next
 	string source_name;
 	source_name.clear();
 #define Text "$PROJ_DIR$\\"
@@ -221,12 +221,12 @@ void EmbPrjIar::searchSourseItems(void)
 		{
 			while (1)
 			{
-				if (titleNode->NextSibling())//Èç¹ûnext´æÔÚ
+				if (titleNode->NextSibling())//å¦‚æœnextå­˜åœ¨
 				{
-					titleNode = titleNode->NextSibling();//Ìø×ª³É¹¦
+					titleNode = titleNode->NextSibling();//è·³è½¬æˆåŠŸ
 					break;
 				}
-				else//²»´æÔÚ
+				else//ä¸å­˜åœ¨
 				{
 					titleNode = titleNode->Parent();
 					if (titleNode == nullptr) { break; }

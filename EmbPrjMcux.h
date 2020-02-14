@@ -13,13 +13,13 @@ public:
 protected:
 	void mcux11_1_0_LaterVersion(void);
 
-	//Ô¤´¦ÀíÆ÷¶¨Òå
+	//é¢„å¤„ç†å™¨å®šä¹‰
 	emb_virtual void searchDefinitions(void);
 
-	//includeÄ¿Â¼
+	//includeç›®å½•
 	emb_virtual  void searchIncludePaths(void);
 
-	//Ô´ÎÄ¼ş
+	//æºæ–‡ä»¶
 	emb_virtual void searchSourseItems(void);
 
 	void searchCmake(void);
@@ -30,8 +30,8 @@ private:
 	string path_cproject;
 
 
-	set< string> DefDebug;//Ô¤´¦ÀíÆ÷¶¨Òå
-	set< string> DefRelease;//Ô¤´¦ÀíÆ÷¶¨Òå
+	set< string> DefDebug;//é¢„å¤„ç†å™¨å®šä¹‰
+	set< string> DefRelease;//é¢„å¤„ç†å™¨å®šä¹‰
 
 
 	const string cmakexml = "\\resource\\CmakeConfig.xml";
