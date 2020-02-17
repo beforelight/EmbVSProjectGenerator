@@ -27,11 +27,14 @@ EmbPrjKeil::EmbPrjKeil(string path_uvprojx_, string path_exe_)
 	emb_assert(titleElement, "格式错误");
 	titleElement = titleElement->FirstChildElement("Target");
 	emb_assert(titleElement, "格式错误");
-	subElement = titleElement->FirstChildElement("pCCUsed");
-	string aaaa(subElement->GetText());
-	a = aaaa.find_first_of(":");
+	subElement = titleElement->FirstChildElement("pCCUsed");//pCCUsed可能没有
+	if (subElement != nullptr)
+	{
+		string aaaa(subElement->GetText());
+		a = aaaa.find_first_of(":");
+		addPreprocessorDefinitions("__ARMCC_VERSION=" + aaaa.substr(0, a));
+	}
 	addPreprocessorDefinitions("__CC_ARM");
-	addPreprocessorDefinitions("__ARMCC_VERSION=" + aaaa.substr(0, a));
 	
 }
 
