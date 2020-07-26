@@ -14,7 +14,7 @@ MCUXpresso IDE
 
 iar
 
-![GIF iar](https://github.com/beforelight/EmbVSProjectGenerator/raw/master/gif/GIF iar.gif)
+![GIF iar](https://github.com/beforelight/EmbVSProjectGenerator/raw/master/gif/GIF-iar.gif)
 
 keil
 
