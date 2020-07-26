@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"pch.h"
 using namespace std;
 using namespace tinyxml2;

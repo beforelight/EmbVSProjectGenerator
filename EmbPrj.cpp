@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "EmbPrj.h"
 
 EmbPrj::EmbPrj(string path, string name) :ProjectDirectory(path), ProjectName(name)
