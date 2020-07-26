@@ -9,9 +9,9 @@ using namespace std;
 using namespace tinyxml2;
 int main(int argc, char* argv[], char* envp[])
 {
-	system("chcp 65001");//修改控制台编码为utf8
 	string rec_path;
 	//cout << "中文测试" << endl;
+	cout << "项目地址：" << endl;
 	printf("Total %d arguments\n", argc);
 	if (argc <= 1)
 	{
