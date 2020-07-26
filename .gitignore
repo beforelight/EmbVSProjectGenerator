@@ -4,8 +4,7 @@
 
 
 /Debug
-/x64/Debug
 /cpp.hint
 /text.txt
-/x64/Release
-/.vs/EmbVSProjectGenerator/v16
+/x64/
+/.vs/

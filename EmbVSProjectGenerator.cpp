@@ -11,7 +11,7 @@ int main(int argc, char* argv[], char* envp[])
 {
 	string rec_path;
 	//cout << "中文测试" << endl;
-	cout << "项目地址：" << endl;
+	cout << "项目地址https://github.com/beforelight/EmbVSProjectGenerator" << endl;
 	printf("Total %d arguments\n", argc);
 	if (argc <= 1)
 	{
