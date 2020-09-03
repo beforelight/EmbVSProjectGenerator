@@ -286,7 +286,8 @@ void EmbPrjMcux::searchDefinitions(void)
 	subElement = titleElement->FirstChildElement("tool");
 	str = subElement->Attribute("name");
 	//找c语言编译器
-	while (str.find("MCU C Compiler") == string::npos)
+	while (str.find("MCU C Compiler") == string::npos&&
+		str.find("MCU GCC Compiler")==string::npos)
 	{
 		subElement = subElement->NextSiblingElement("tool");
 		if (titleElement == nullptr)
@@ -301,7 +302,8 @@ void EmbPrjMcux::searchDefinitions(void)
 	//开始查询预处理定义
 	subElement = titleElement->FirstChildElement("option");
 	str = subElement->Attribute("id");
-	while (str.find("preprocessor.def.symbols") == string::npos)
+	while (str.find("preprocessor.def.symbols") == string::npos &&
+		str.find("compiler.option.definedsymbols")==string::npos)
 	{
 		subElement = subElement->NextSiblingElement("option");
 		if (titleElement == nullptr)
@@ -323,7 +325,8 @@ void EmbPrjMcux::searchDefinitions(void)
 	//开始查询inc目录
 	subElement = titleElement->FirstChildElement("option");
 	str = subElement->Attribute("id");
-	while (str.find("compiler.option.include.paths") == string::npos)
+	while (str.find("compiler.option.include.paths") == string::npos &&
+		str.find("compiler.option.includepaths")==string::npos)
 	{
 		subElement = subElement->NextSiblingElement("option");
 		if (titleElement == nullptr)

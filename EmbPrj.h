@@ -5,6 +5,7 @@ using namespace tinyxml2;
 #define emb_assert(expression,...) if(!expression){printf(__VA_ARGS__);printf("\r\n");}assert(expression)
 #define emb_virtual
 #define MSBuildProjectDirectory "$(MSBuildProjectDirectory)"
+#define _Max_value(a,b) ((a>b) ? a : b)
 class EmbPrj
 {
 public:
