@@ -12,7 +12,7 @@ link_libraries(pugixml)
 
 include_directories(pugixml/src)
 include_directories(src)
-include_directories(clipp/include)
+include_directories(cmdline)
 
 add_executable(vspg src/main.cpp src/prj.cpp src/prjCube.cpp)
 add_executable(test src/test.cpp)
