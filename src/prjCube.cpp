@@ -8,22 +8,28 @@
 using namespace pugi;
 using namespace std;
 prjCube::prjCube(std::string file) {
-    std::string path(file);
 
-    if (path.find(".project") != std::string::npos) {
-    } else if (path.find(".cproject") != std::string::npos) {
+    if (file.find(".project") != std::string::npos) {
+    } else if (file.find(".cproject") != std::string::npos) {
     } else {
         throw std::invalid_argument("project file path =" + file);
     }
 
-    int a = path.find_last_of('\\');
-    int b = path.find_last_of('/');
-    int c = path.find_last_of('.');
+    int a = file.find_last_of('\\');
+    int b = file.find_last_of('/');
+//    int c = path.find_last_of('.');
     a = _Max_value(a, b);
-    path = path.substr(0, a + 1);//包含最后的那个'/'
-
+    path = file.substr(0, a + 1);//包含最后的那个'/'
+    LOG_INFO << "输入工程的目录在" << path;
     project = path + ".project";
     cproject = path + ".cproject";
+    xml_document doc;
+    if (doc.load_file(project.c_str())) {
+        for (auto i:doc.child("projectDescription").child("name")) {
+            LOG_INFO << i.value();
+            prj_name = i.value();
+        }
+    }
 }
 
 
@@ -35,9 +41,9 @@ int prjCube::FindDefinedsymbols() {
             if (string(i.node().attribute("id").value())
                         .find("compiler.option.definedsymbols")
                 != string::npos) {
-//                cout<<i.node().attribute("id").value();
+                LOG_INFO << i.node().attribute("id").value();
                 for (auto j:i.node()) {
-//                    cout<<j.attribute("value").value();
+                    LOG_INFO << j.attribute("value").value();
                     definedsymbols.insert(j.attribute("value").value());
                 }
             }
@@ -53,11 +59,11 @@ int prjCube::FindIncludePaths() {
             if (string(i.node().attribute("id").value())
                         .find("compiler.option.includepaths")
                 != string::npos) {
-//                cout<<i.node().attribute("id").value();
+                LOG_INFO << i.node().attribute("id").value();
                 for (auto j:i.node()) {
-//                    cout<<j.attribute("value").value();
+                    LOG_INFO << j.attribute("value").value();
                     string buf = j.attribute("value").value();
-                    definedsymbols.insert(replace_str(buf, "../", ""));
+                    includePaths.insert(replace_str(buf, "../", ""));
                 }
             }
         }
@@ -71,22 +77,18 @@ int prjCube::FindSourseItems() {
     if (doc.load_file(cproject.c_str())) {
         xpath_node_set def = doc.select_nodes("//configuration/sourceEntries/entry");
         for (xpath_node i:def) {
-//                cout<<i.node().attribute("name").value();
+            LOG_INFO << i.node().attribute("name").value();
             sourceEntries.insert(i.node().attribute("name").value());
         }
     }
-
-    DIR *dirp;
-    struct dirent *dp;
-    for(auto dir_name: sourceEntries){
-        dirp = opendir(dir_name.c_str());
-        while ((dp = readdir(dirp)) != NULL) {
-//            v.push_back(std::string(dp->d_name));
-//                dp.
-        }
-        (void) closedir(dirp);
+    vector<string> files;
+    for (auto i:sourceEntries) {
+        listFiles((path + i).c_str(), files);
     }
 
-    return 0;
+    for (auto i:files) {
+        LOG_INFO << i;
+        srcItems.insert(i.substr(path.size()));
+    }
     return 0;
 }

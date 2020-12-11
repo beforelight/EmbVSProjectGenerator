@@ -29,6 +29,7 @@ public:
     std::set<std::string> srcGroup;//源文件分组//中间变量
 
     std::string path;//项目的路径，包含最后的/
+    std::string prj_name;//项目名称
 };
 std::string& replace_str(std::string& str, const std::string& to_replaced, const std::string& newchars);
 void listFiles(const char *dir, std::vector<std::string> &list);
