@@ -34,3 +34,35 @@ std::string &replace_str(std::string &str, const std::string &to_replaced, const
     }
     return   str;
 }
+void listFiles(const char *dir, std::vector<std::string> &list) {
+    std::string dirNew(dir);
+    std::string str;
+
+    if (dirNew.c_str()[dirNew.size() - 1] == '/' ||
+        dirNew.c_str()[dirNew.size() - 1] == '\\') {
+        dirNew.pop_back();
+    }
+
+    intptr_t handle;
+    _finddata_t findData;
+
+    handle = _findfirst((dirNew + "/*.*").c_str(), &findData);
+    if (handle == -1)        // 检查是否成功
+        return;
+    do {
+        if (findData.attrib & _A_SUBDIR) {
+            if (strcmp(findData.name, ".") == 0 || strcmp(findData.name, "..") == 0) {
+                continue;
+            }
+            str = dirNew + '\\' + findData.name;
+            LOG_INFO << str << "\t<dir>";
+            listFiles(str.c_str(), list);
+        } else {
+            str = dirNew + '\\' + findData.name;
+            LOG_INFO << str << '\t'<< (size_t) findData.size << " bytes.";
+            list.push_back(str);
+        }
+    } while (_findnext(handle, &findData) == 0);
+
+    _findclose(handle);    // 关闭搜索句柄
+}
