@@ -23,7 +23,8 @@ include_directories(cmdline)
 include_directories(NanoLog)
 include_directories(tinyxml2)
 
-add_executable(vspg src/main.cpp src/prj.cpp src/prjCube.cpp
+add_executable(vspg src/main.cpp
+        src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp
         src/pg.cpp src/pgVS.cpp
         src/error.cpp
         )

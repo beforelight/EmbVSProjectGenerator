@@ -4,6 +4,7 @@
 
 #include "prj.h"
 #include "prjCube.h"
+#include "prjMCUX.h"
 int prj::Find() {
     int res = 0;
     res |= FindDefinedsymbols();
@@ -18,8 +19,9 @@ int prj_ptr::Load(std::string file) {
     if (prjCube::detect(file)){
         reset(new prjCube(file));
         return 0;
-    }else{
-
+    }else if(prjMCUX::detect(file)){
+        reset(new prjMCUX(file));
+        return 0;
     }
     throw std::invalid_argument("no supported type");
 }
