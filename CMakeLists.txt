@@ -18,5 +18,8 @@ include_directories(src)
 include_directories(cmdline)
 include_directories(NanoLog)
 
-add_executable(vspg src/main.cpp src/prj.cpp src/prjCube.cpp)
-add_executable(test src/test.cpp)
+add_executable(vspg src/main.cpp src/prj.cpp src/prjCube.cpp
+        src/pg.cpp src/pgVS.cpp
+        src/error.cpp
+        )
+add_executable(test src/test.cpp src/error.cpp)
