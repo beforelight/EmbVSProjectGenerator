@@ -9,6 +9,7 @@ using namespace pugi;
 using namespace std;
 prjCube::prjCube(std::string file) {
 
+    definedsymbols.insert("__GNUC__");
     if (file.find(".project") != std::string::npos) {
     } else if (file.find(".cproject") != std::string::npos) {
     } else {
