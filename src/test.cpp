@@ -3,10 +3,13 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "pugixml.hpp"
 #include <io.h>
 #include "NanoLog.hpp"
 #include <vector>
+#include <CJsonObject.hpp>
+#include <sstream>
 #include "error.h"
 using namespace pugi;
 using namespace std;
@@ -107,5 +110,21 @@ int main() {
     catch (const std::exception &e) {
         cout << e.what() << endl;
     }
+    std::ifstream fin("bin/resource/c_cpp_properties.json");
+    if (fin.is_open()){
+        neb::CJsonObject oJson;
+        std::stringstream ssContent;
+        ssContent << fin.rdbuf();
+        if (oJson.Parse(ssContent.str()))
+        {
+            cout<<oJson["configurations"][0]("name");
+        }
+        else
+        {
+            std::cerr << "parse json error" << "\n";// << ssContent.str() << std::endl;
+        }
+        fin.close();
+    }
+
     return 0;
 }
