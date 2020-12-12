@@ -16,7 +16,7 @@ bool prjMCUX::detect(std::string file) {
 //    int c = path.find_last_of('.');
     a = _Max_value(a, b);
     std::string path = file.substr(0, a + 1);//包含最后的那个'/'
-//    LOG_INFO << "输入工程的目录在" << path;
+    LOG_INFO << path;
     std::string project = path + ".project";
     xml_document doc;
     if (doc.load_file(project.c_str())) {
@@ -43,7 +43,7 @@ prjMCUX::prjMCUX(std::string file) {
 //    int c = path.find_last_of('.');
     a = _Max_value(a, b);
     path = file.substr(0, a + 1);//包含最后的那个'/'
-    LOG_INFO << "输入工程的目录在" << path;
+    LOG_INFO << path;
     project = path + ".project";
     cproject = path + ".cproject";
     xml_document doc;
@@ -86,7 +86,7 @@ int prjMCUX::FindIncludePaths() {
                     string str = j.attribute("value").value();
                     if (str.find("$") != string::npos)
                     {
-                        replace_str(str, "&quot;", "");
+//                        replace_str(str, "&quot;", "");
                         replace_str(str, "\"${workspace_loc:/${ProjName}/", "");
                         replace_str(str, "}\"", "");
                     }
