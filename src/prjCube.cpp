@@ -93,3 +93,28 @@ int prjCube::FindSourseItems() {
     }
     return 0;
 }
+bool prjCube::detect(std::string file) {
+    if (file.find(".project") != std::string::npos) {
+    } else if (file.find(".cproject") != std::string::npos) {
+    } else {
+        return false;
+    }
+    int a = file.find_last_of('\\');
+    int b = file.find_last_of('/');
+//    int c = path.find_last_of('.');
+    a = _Max_value(a, b);
+    std::string path = file.substr(0, a + 1);//包含最后的那个'/'
+//    LOG_INFO << "输入工程的目录在" << path;
+    std::string project = path + ".project";
+    xml_document doc;
+    if (doc.load_file(project.c_str())) {
+        for (auto i:doc.select_nodes("/projectDescription/natures/nature")) {
+            std::string str = i.node().text().get();
+            LOG_INFO << str;
+            if(str.find("stm32cube")!=std::string::npos){
+                return true;
+            }
+        }
+    }
+    return false;
+}

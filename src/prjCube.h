@@ -15,6 +15,7 @@ public:
     int FindDefinedsymbols();
     int FindIncludePaths();
     int FindSourseItems();
+    static bool detect(std::string file);
 };
 
 

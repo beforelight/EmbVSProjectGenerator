@@ -15,13 +15,13 @@ prj::~prj() {}
 prj::prj() {}
 
 int prj_ptr::Load(std::string file) {
-    if (file.find(".project") != std::string::npos||(file.find(".cproject") != std::string::npos)){
+    if (prjCube::detect(file)){
         reset(new prjCube(file));
         return 0;
     }else{
 
     }
-    return -1;
+    throw std::invalid_argument("no supported type");
 }
 std::string &replace_str(std::string &str, const std::string &to_replaced, const std::string &newchars) {
     for (std::string::size_type pos(0); pos != std::string::npos; pos += newchars.length())
