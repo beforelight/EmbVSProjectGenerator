@@ -10,3 +10,6 @@
 [submodule "tinyxml2"]
 	path = tinyxml2
 	url = https://github.com/leethomason/tinyxml2.git
+[submodule "CJsonObject"]
+	path = CJsonObject
+	url = https://github.com/Bwar/CJsonObject.git

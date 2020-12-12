@@ -17,11 +17,16 @@ link_directories(tinyxml2)
 add_library(tinyxml2 tinyxml2/tinyxml2.cpp)
 link_libraries(tinyxml2)
 
+link_directories(CJsonObject)
+add_library(CJsonObject CJsonObject/cJSON.c CJsonObject/CJsonObject.cpp)
+link_libraries(CJsonObject)
+
 include_directories(pugixml/src)
 include_directories(src)
 include_directories(cmdline)
 include_directories(NanoLog)
 include_directories(tinyxml2)
+include_directories(CJsonObject)
 
 add_executable(vspg src/main.cpp
         src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp
