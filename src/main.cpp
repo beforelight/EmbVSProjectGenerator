@@ -9,13 +9,18 @@
 #include "pgVSCode.h"
 #include "NanoLog.hpp"
 using namespace std;
-string path_exe;//包括最后的/
+string path_exe;//包括最后的/，是程序上上一级绝对目录
 int main(int argc, char *argv[]) {
-    //初始化变量和解析器
-    path_exe = argv[0];
-    int a = replace_str(path_exe, "\\", "/").find_last_of('/');
-    path_exe = path_exe.substr(0, a + 1);
-    nanolog::initialize(nanolog::NonGuaranteedLogger(10), path_exe.c_str(), "log", 1);
+    //获取程序的路径，便于访问资源文件
+    char buff[500];
+    getcwd(buff, 500);
+    path_exe = buff;
+    REPLACE_CHAR(path_exe);
+    if (path_exe.find_last_of("/") != string::npos) {
+        path_exe = path_exe.substr(0, path_exe.find_last_of("/") + 1);//+1保留最后的那个/
+    }
+    //解析器
+    nanolog::initialize(nanolog::NonGuaranteedLogger(10), (path_exe + "log/").c_str(), "log", 1);
     std::vector<std::string> args;
     args.reserve(argc);
     for (int i = 0; i < argc; ++i) {
@@ -24,7 +29,7 @@ int main(int argc, char *argv[]) {
     cmdline::parser ps;
     ps.add<string>("file", 'f', "input file about iar\\keil\\eclipse project",
                    true, "");
-    ps.add<string>("type", 't', "output project files type",
+    ps.add<string>("type", 't', "output project files type like vs/vscode/cmake/all",
                    false, "all",
                    cmdline::oneof<string>("vs", "vscode", "cmake", "all"));
     //适配直接输文件的情况
@@ -42,7 +47,7 @@ int main(int argc, char *argv[]) {
 
         //写回到新的工程文件
         auto vs_op = [&] { pgvs(ptr, path_exe).Generate(); };
-        auto vscode_op = [&] {pgVSCode(ptr, path_exe).Generate();};
+        auto vscode_op = [&] { pgVSCode(ptr, path_exe).Generate(); };
         auto cmake_op = [&] { pgCmake(ptr, path_exe).Generate(); };
         if (ps.get<string>("type") == "vs") { vs_op(); }
         else if (ps.get<string>("type") == "vscode") { vscode_op(); }
