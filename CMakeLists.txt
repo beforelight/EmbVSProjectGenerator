@@ -30,7 +30,7 @@ include_directories(CJsonObject)
 
 add_executable(vspg src/main.cpp
         src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp
-        src/pg.cpp src/pgVS.cpp src/pgCmake.cpp
+        src/pg.cpp src/pgVS.cpp src/pgCmake.cpp src/pgVSCode.cpp
         src/error.cpp
         )
 add_executable(test src/test.cpp src/error.cpp)
