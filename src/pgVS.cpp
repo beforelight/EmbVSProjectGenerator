@@ -168,22 +168,6 @@ int pgvs::filtersGenerate(void) {
     sinTemp.close();
     sinNew.close();
 
-
-    //准备筛选器
-    int a = 0;
-    for (set<string>::iterator i = prjPtr->srcItems.begin(); i != prjPtr->srcItems.end(); i++)
-    {
-        string ibuf(*i);
-        string b = replace_str(ibuf, "/", "\\");
-        b = replace_str(b, "..\\", "");
-        if (b.size())
-        {
-            while ((a = b.find("\\", a + 1)) != string::npos)
-            {
-                prjPtr->srcGroup.insert(b.substr(0, a));
-            }
-        }
-    }
     //进行xml修改
     XMLDocument ewp;
     XMLElement* titleElement;

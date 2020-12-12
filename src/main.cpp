@@ -5,6 +5,7 @@
 #include "prj.h"
 #include "pg.h"
 #include "pgVS.h"
+#include "pgCmake.h"
 #include "NanoLog.hpp"
 using namespace std;
 string path_exe;//包括最后的/
@@ -40,12 +41,16 @@ int main(int argc, char *argv[]) {
 
         //写回到新的工程文件
         auto vs_op = [&] { pgvs(ptr, path_exe).Generate(); };
-        auto vscode_op = [&] {  };
-        auto cmake_op = [&] {  };
-        if(ps.get<string>("type")=="vs"){vs_op();}
-        else if(ps.get<string>("type")=="vscode"){vscode_op();}
-        else if(ps.get<string>("type")=="cmake"){cmake_op();}
-        else if(ps.get<string>("type")=="all"){vs_op();vscode_op();cmake_op();}
+        auto vscode_op = [&] {};
+        auto cmake_op = [&] { pgCmake(ptr, path_exe).Generate(); };
+        if (ps.get<string>("type") == "vs") { vs_op(); }
+        else if (ps.get<string>("type") == "vscode") { vscode_op(); }
+        else if (ps.get<string>("type") == "cmake") { cmake_op(); }
+        else if (ps.get<string>("type") == "all") {
+            vs_op();
+            vscode_op();
+            cmake_op();
+        }
     }
     catch (const char *msg) {
         cout << msg << endl;

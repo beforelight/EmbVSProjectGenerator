@@ -21,6 +21,7 @@ public:
     virtual int FindDefinedsymbols() = 0;
     virtual int FindIncludePaths() = 0;
     virtual int FindSourseItems() = 0;
+    int FindGroup();
     int Find();
 public:
     std::set<std::string> definedsymbols;//预处理器定义
@@ -32,6 +33,7 @@ public:
     std::string prj_name;//项目名称
 };
 std::string& replace_str(std::string& str, const std::string& to_replaced, const std::string& newchars);
+#define REPLACE_CHAR(str) replace_str(str,"\\","/")
 void listFiles(const char *dir, std::vector<std::string> &list);
 
 class prj_ptr : public std::shared_ptr<prj> {
