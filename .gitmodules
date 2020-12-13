@@ -3,7 +3,7 @@
 	url = https://github.com/zeux/pugixml.git
 [submodule "cmdline"]
 	path = cmdline
-	url = https://github.com/tanakh/cmdline.git
+	url = https://github.com/beforelight/cmdline.git
 [submodule "NanoLog"]
 	path = NanoLog
 	url = https://github.com/Iyengar111/NanoLog.git
