@@ -12,10 +12,6 @@ using namespace std;
 string path_exe;//包括最后的/，是程序上上一级绝对目录
 int main(int argc, char *argv[]) {
     //获取程序的路径，便于访问资源文件
-//    char buff[500];
-//    getcwd(buff, 500);
-//    cout << buff << endl;//当前执行exe的路径的绝对路径
-//    cout << _pgmptr << endl;//exe文件的绝对路径
     path_exe = _pgmptr;
     REPLACE_CHAR(path_exe);
     if (path_exe.find_last_of("/") != string::npos) {
@@ -24,7 +20,6 @@ int main(int argc, char *argv[]) {
     if (path_exe.find_last_of("/") != string::npos) {
         path_exe = path_exe.substr(0, path_exe.find_last_of("/") + 1);//+1保留最后的那个/ exe目录上一级
     }
-//    cout << path_exe << endl;
     //转换为c++数组
     std::vector<std::string> args;
     args.reserve(argc);
