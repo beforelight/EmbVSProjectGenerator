@@ -7,7 +7,7 @@
 #include "pgVSCode.h"
 #include "CJsonObject.hpp"
 #include "error.h"
-#include "direct.h"
+#include <filesystem>
 int pgVSCode::Generate() {
     std::ifstream fin;
 #if defined(__linux__)
@@ -15,15 +15,18 @@ int pgVSCode::Generate() {
 #else
     fin.open(path_exe + resource + "c_cpp_properties_win32.json");
 #endif
+    std::filesystem::path fout_path(prjPtr->path + ".vscode/");
+    if (!std::filesystem::exists(fout_path)) {
+        std::filesystem::create_directory(fout_path);
+    }
+
     std::ofstream fout(prjPtr->path + ".vscode/" + "c_cpp_properties.json");
     std::stringstream ssContent;
     neb::CJsonObject oJson;
-    if(!fout.is_open()){
-        _mkdir((prjPtr->path + ".vscode/").c_str());
-        fout.open(prjPtr->path + ".vscode/" + "c_cpp_properties.json");
+    if (!fin.is_open()) {
+        throw ERROR("fail to open the file");
     }
-    if (!fin.is_open() ||
-        !fout.is_open()) {
+    if (!fout.is_open()) {
         throw ERROR("fail to open the file");
     }
     ssContent << fin.rdbuf();
