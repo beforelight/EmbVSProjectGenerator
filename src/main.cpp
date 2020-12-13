@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     if (path_exe.find_last_of("/") != string::npos) {
         path_exe = path_exe.substr(0, path_exe.find_last_of("/") + 1);//+1保留最后的那个/ exe目录上一级
     }
-    cout << path_exe << endl;
+//    cout << path_exe << endl;
     //转换为c++数组
     std::vector<std::string> args;
     args.reserve(argc);
