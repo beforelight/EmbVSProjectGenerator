@@ -67,10 +67,14 @@ int main(int argc, char *argv[]) {
     }
     catch (const char *msg) {
         cout << msg << endl;
+        cout<<"******press any key to continues******";
+        getchar();
         return -1;
     }
     catch (const std::exception &e) {
         cout << e.what() << endl;
+        cout<<"******press any key to continues******";
+        getchar();
         return -1;
     }
     return 0;
