@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by 17616 on 2020/12/12.
 //
 
@@ -23,7 +23,7 @@ bool prjMCUX::detect(std::string file) {
         for (auto i:doc.select_nodes("/projectDescription/natures/nature")) {
             std::string str = i.node().text().get();
             LOG_INFO << str;
-            if(str.find("mcuxpresso")!=std::string::npos){
+            if (str.find("mcuxpresso") != std::string::npos) {
                 return true;
             }
         }
@@ -84,8 +84,7 @@ int prjMCUX::FindIncludePaths() {
                 for (auto j:i.node()) {
                     LOG_INFO << j.attribute("value").value();
                     string str = j.attribute("value").value();
-                    if (str.find("$") != string::npos)
-                    {
+                    if (str.find("$") != string::npos) {
 //                        replace_str(str, "&quot;", "");
                         replace_str(str, "\"${workspace_loc:/${ProjName}/", "");
                         replace_str(str, "}\"", "");
@@ -111,7 +110,7 @@ int prjMCUX::FindSourseItems() {
     }
     vector<string> files;
     for (auto i:sourceEntries) {
-        listFiles((path + i).c_str(), files);
+        listFiles(path + i, files);
     }
 
     for (auto i:files) {

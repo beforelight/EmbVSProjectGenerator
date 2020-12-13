@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by 17616 on 2020/12/8.
 //
 
@@ -6,6 +6,7 @@
 #include "prjCube.h"
 #include "prjMCUX.h"
 using namespace std;
+using namespace std::filesystem;
 int prj::Find() {
     FindDefinedsymbols();
     FindIncludePaths();
@@ -19,15 +20,12 @@ prj::prj() {}
 int prj::FindGroup() {
     //准备筛选器
     int a = 0;
-    for (set<string>::iterator i = srcItems.begin(); i != srcItems.end(); i++)
-    {
+    for (set<string>::iterator i = srcItems.begin(); i != srcItems.end(); i++) {
         string ibuf(*i);
         string b = replace_str(ibuf, "/", "\\");
         b = replace_str(b, "..\\", "");
-        if (b.size())
-        {
-            while ((a = b.find("\\", a + 1)) != string::npos)
-            {
+        if (b.size()) {
+            while ((a = b.find("\\", a + 1)) != string::npos) {
                 srcGroup.insert(b.substr(0, a));
             }
         }
@@ -55,35 +53,12 @@ std::string &replace_str(std::string &str, const std::string &to_replaced, const
     }
     return str;
 }
-void listFiles(const char *dir, std::vector<std::string> &list) {
-    std::string dirNew(dir);
-    std::string str;
-
-    if (dirNew.c_str()[dirNew.size() - 1] == '/' ||
-        dirNew.c_str()[dirNew.size() - 1] == '\\') {
-        dirNew.pop_back();
-    }
-
-    intptr_t handle;
-    _finddata_t findData;
-
-    handle = _findfirst((dirNew + "/*.*").c_str(), &findData);
-    if (handle == -1)        // 检查是否成功
-        return;
-    do {
-        if (findData.attrib & _A_SUBDIR) {
-            if (strcmp(findData.name, ".") == 0 || strcmp(findData.name, "..") == 0) {
-                continue;
-            }
-            str = dirNew + '\\' + findData.name;
-            LOG_INFO << str << "\t<dir>";
-            listFiles(str.c_str(), list);
+void listFiles(const filesystem::path &dir, vector<std::string> &list) {
+    for (auto i:directory_iterator(dir)) {
+        if (i.is_directory()) {
+            listFiles(i, list);
         } else {
-            str = dirNew + '\\' + findData.name;
-            LOG_INFO << str << '\t' << (size_t) findData.size << " bytes.";
-            list.push_back(str);
+            list.push_back(i.path().string());
         }
-    } while (_findnext(handle, &findData) == 0);
-
-    _findclose(handle);    // 关闭搜索句柄
+    }
 }

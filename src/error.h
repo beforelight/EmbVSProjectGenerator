@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by 17616 on 2020/12/12.
 //
 
@@ -9,7 +9,7 @@
 class error : public std::exception {
 public:
     error(const std::string &_msg, const std::string &file, const std::string &function, size_t line);
-    const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT override;
+    const char *what() const  override;
 private:
     std::string msg;
 };

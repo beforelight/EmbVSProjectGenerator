@@ -1,4 +1,4 @@
-#include "cmdline.h"
+﻿#include "cmdline.h"
 #include <iostream>
 #include <map>
 #include <functional>
@@ -45,11 +45,12 @@ int main(int argc, char *argv[]) {
     //解析指令
     ps.parse_check(args);
     //创建log所在的文件夹
-    if (access("c:/temp", 0) == -1) {
-        mkdir("c:/temp");
+    filesystem::path log_path("c:/temp/");
+    if (!filesystem::exists(log_path)) {
+        filesystem::create_directory(log_path);
     }
     //初始化log
-    nanolog::initialize(nanolog::NonGuaranteedLogger(10), "c:/temp/", "vspg_log", 1);
+    nanolog::initialize(nanolog::NonGuaranteedLogger(10), log_path.string(), "vspg_log", 1);
     try {
         //从工程文件中读取到内存
         prj_ptr ptr;

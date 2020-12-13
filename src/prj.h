@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by 17616 on 2020/12/8.
 //
 
@@ -8,7 +8,7 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <io.h>
+#include <filesystem>
 #include "pugixml.hpp"
 #include "NanoLog.hpp"
 //所有路径采用/
@@ -32,16 +32,13 @@ public:
     std::string path;//项目的路径，包含最后的/
     std::string prj_name;//项目名称
 };
-std::string& replace_str(std::string& str, const std::string& to_replaced, const std::string& newchars);
+std::string &replace_str(std::string &str, const std::string &to_replaced, const std::string &newchars);
 #define REPLACE_CHAR(str) replace_str(str,"\\","/")
-void listFiles(const char *dir, std::vector<std::string> &list);
-
+void listFiles(const std::filesystem::path &dir, std::vector<std::string> &list);
 class prj_ptr : public std::shared_ptr<prj> {
 public:
     int Load(std::string file);
 };
-
-
 
 
 #endif //VSPG_PRJ_H

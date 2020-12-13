@@ -1,10 +1,9 @@
-//
+﻿//
 // Created by 17616 on 2020/12/8.
 //
 
 #include "prjCube.h"
 #include <iostream>
-#include <dirent.h>
 using namespace pugi;
 using namespace std;
 prjCube::prjCube(std::string file) {
@@ -84,7 +83,7 @@ int prjCube::FindSourseItems() {
     }
     vector<string> files;
     for (auto i:sourceEntries) {
-        listFiles((path + i).c_str(), files);
+        listFiles(path + i, files);
     }
 
     for (auto i:files) {
