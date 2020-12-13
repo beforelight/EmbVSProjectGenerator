@@ -10,10 +10,10 @@
 #include "direct.h"
 int pgVSCode::Generate() {
     std::ifstream fin;
-#if defined(__WIN32__)
+#if defined(__linux__)
+    fin.open(path_exe + resource + "c_cpp_properties_linux.json");
+#else
     fin.open(path_exe + resource + "c_cpp_properties_win32.json");
-#elif defined(__linux__)
-    throw ERROR("Under construction \uD83D\uDEA7");
 #endif
     std::ofstream fout(prjPtr->path + ".vscode/" + "c_cpp_properties.json");
     std::stringstream ssContent;
