@@ -6,6 +6,7 @@
 #include "prjCube.h"
 #include "prjMCUX.h"
 #include "prjIAR.h"
+#include "prjMDK.h"
 using namespace std;
 using namespace std::filesystem;
 int prj::Find() {
@@ -43,6 +44,9 @@ int prj_ptr::Load(std::string file) {
         return 0;
     } else if (prjIAR::detect(file)) {
         reset(new prjIAR(file));
+        return 0;
+    } else if (prjMDK::detect(file)) {
+        reset(new prjMDK(file));
         return 0;
     }
     throw std::invalid_argument("no supported type");

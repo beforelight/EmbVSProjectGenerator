@@ -25,6 +25,9 @@ prjIAR::prjIAR(std::string file) {
     LOG_INFO << path;
     ewp = file.substr(0, file.find_last_of('.')) + ".ewp";
     LOG_INFO << ewp;
+    if(!filesystem::exists(ewp)){
+        throw ERROR("file don't exist");
+    }
     xml_document doc;
     if (doc.load_file(ewp.c_str())) {
         for (auto i:doc.child("project").child("configuration").child("name")) {

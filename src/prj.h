@@ -9,6 +9,7 @@
 #include <memory>
 #include <vector>
 #include <filesystem>
+#include "error.h"
 #include "pugixml.hpp"
 #include "NanoLog.hpp"
 //所有路径采用/
