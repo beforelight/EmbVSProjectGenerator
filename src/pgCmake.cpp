@@ -13,7 +13,7 @@ int pgCmake::Generate() {
     }
     cmake << "cmake_minimum_required(VERSION 3.15)" << endl;
     cmake << "project(" << prjPtr->prj_name << ")" << endl;
-    cmake << "set(PRJDIR  " << REPLACE_CHAR(prjPtr->path) << ")" << endl;
+//    cmake << "set(PRJDIR  " << REPLACE_CHAR(prjPtr->path) << ")" << endl;
     for (auto i:prjPtr->definedsymbols) {
         cmake << "add_definitions(-D" << i << ")" << endl;
     }

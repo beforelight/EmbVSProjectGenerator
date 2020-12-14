@@ -5,6 +5,7 @@
 #include "prj.h"
 #include "prjCube.h"
 #include "prjMCUX.h"
+#include "prjIAR.h"
 using namespace std;
 using namespace std::filesystem;
 int prj::Find() {
@@ -23,7 +24,7 @@ int prj::FindGroup() {
     for (set<string>::iterator i = srcItems.begin(); i != srcItems.end(); i++) {
         string ibuf(*i);
         string b = replace_str(ibuf, "/", "\\");
-        b = replace_str(b, "..\\", "");
+//        b = replace_str(b, "..\\", "");
         if (b.size()) {
             while ((a = b.find("\\", a + 1)) != string::npos) {
                 srcGroup.insert(b.substr(0, a));
@@ -39,6 +40,9 @@ int prj_ptr::Load(std::string file) {
         return 0;
     } else if (prjMCUX::detect(file)) {
         reset(new prjMCUX(file));
+        return 0;
+    } else if (prjIAR::detect(file)) {
+        reset(new prjIAR(file));
         return 0;
     }
     throw std::invalid_argument("no supported type");

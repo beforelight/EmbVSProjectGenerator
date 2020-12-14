@@ -184,6 +184,9 @@ int pgvs::filtersGenerate(void) {
         newElement = ewp.NewElement("Filter");
         string ibuf(*i);
         replace_str(ibuf, "..\\", "");
+        if(ibuf==".."){
+            continue;
+        }
         newElement->SetAttribute("Include", ibuf.c_str());
         newElement2 = ewp.NewElement("UniqueIdentifier");
         UniqueIdentifier a;

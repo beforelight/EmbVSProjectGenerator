@@ -29,7 +29,7 @@ include_directories(tinyxml2)
 include_directories(CJsonObject)
 
 add_executable(vspg src/main.cpp
-        src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp
+        src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp src/prjIAR.cpp src/prjMDK.cpp
         src/pg.cpp src/pgVS.cpp src/pgCmake.cpp src/pgVSCode.cpp
         src/error.cpp
         )
