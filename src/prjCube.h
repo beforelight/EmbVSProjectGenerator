@@ -1,21 +1,18 @@
-﻿//
-// Created by 17616 on 2020/12/8.
-//
-
-#ifndef VSPG_PRJCUBE_H
+﻿#ifndef VSPG_PRJCUBE_H
 #define VSPG_PRJCUBE_H
 
 #include "prj.h"
-class prjCube : public prj{
+class prjCube : public prj {
 private:
     std::string cproject;
     std::string project;
+    pugi::xml_document doc;
 public:
-    prjCube(std::string file);
+    prjCube(const std::string &file);
     int FindDefinedsymbols();
     int FindIncludePaths();
     int FindSourseItems();
-    static bool detect(std::string file);
+    static bool detect(const std::string &file);
 };
 
 

@@ -1,12 +1,4 @@
-﻿//
-// Created by 17616 on 2020/12/8.
-//
-
-#include "prj.h"
-#include "prjCube.h"
-#include "prjMCUX.h"
-#include "prjIAR.h"
-#include "prjMDK.h"
+﻿#include "prj.h"
 using namespace std;
 using namespace std::filesystem;
 int prj::Find() {
@@ -16,13 +8,11 @@ int prj::Find() {
     FindGroup();
     return 0;
 }
-prj::~prj() {}
-prj::prj() {}
-
+prj::~prj() = default;
+prj::prj() = default;
 int prj::FindGroup() {
-    //准备筛选器
     int a = 0;
-    for (set<string>::iterator i = srcItems.begin(); i != srcItems.end(); i++) {
+    for (auto i = srcItems.begin(); i != srcItems.end(); i++) {
         string ibuf(*i);
         string b = replace_str(ibuf, "/", "\\");
 //        b = replace_str(b, "..\\", "");
@@ -35,29 +25,14 @@ int prj::FindGroup() {
     return 0;
 }
 
-int prj_ptr::Load(std::string file) {
-    if (prjCube::detect(file)) {
-        reset(new prjCube(file));
-        return 0;
-    } else if (prjMCUX::detect(file)) {
-        reset(new prjMCUX(file));
-        return 0;
-    } else if (prjIAR::detect(file)) {
-        reset(new prjIAR(file));
-        return 0;
-    } else if (prjMDK::detect(file)) {
-        reset(new prjMDK(file));
-        return 0;
-    }
-    throw std::invalid_argument("no supported type");
-}
 std::string &replace_str(std::string &str, const std::string &to_replaced, const std::string &newchars) {
     for (std::string::size_type pos(0); pos != std::string::npos; pos += newchars.length()) {
         pos = str.find(to_replaced, pos);
-        if (pos != std::string::npos)
+        if (pos != std::string::npos) {
             str.replace(pos, to_replaced.length(), newchars);
-        else
+        } else {
             break;
+        }
     }
     return str;
 }
@@ -69,4 +44,20 @@ void listFiles(const filesystem::path &dir, vector<std::string> &list) {
             list.push_back(i.path().string());
         }
     }
+}
+vector<prj_ptr::login *> prj_ptr_list;
+prj_ptr::login::
+login(std::function<bool(const std::string &)> _detect,
+      std::function<prj *(const std::string &)> _newAnObj)
+        : detect(std::move(_detect)), newAnObj(std::move(_newAnObj)) {
+    prj_ptr_list.push_back(this);
+}
+int prj_ptr::Load(const std::string& file) {
+    for (auto i:prj_ptr_list) {
+        if (i->detect(file)) {
+            reset(i->newAnObj(file));
+            return 0;
+        }
+    }
+    throw ERROR("Unsupported type");
 }

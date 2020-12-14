@@ -1,85 +1,68 @@
-﻿//
-// Created by 17616 on 2020/12/8.
-//
-
-#include "prjCube.h"
-#include <iostream>
+﻿#include "prjCube.h"
 using namespace pugi;
 using namespace std;
-prjCube::prjCube(std::string file) {
-
-    definedsymbols.insert("__GNUC__");
-    if (file.find(".project") != std::string::npos) {
-    } else if (file.find(".cproject") != std::string::npos) {
-    } else {
-        throw std::invalid_argument("project file path =" + file);
+prj_ptr::login loginCube(prjCube::detect, [](const string & file){return new prjCube(file);});
+prjCube::prjCube(const std::string &file) {
+    if(!detect(file)){
+        throw ERROR("not support");
     }
-
+    definedsymbols.insert("__GNUC__");
     int a = file.find_last_of('\\');
     int b = file.find_last_of('/');
-//    int c = path.find_last_of('.');
     a = _Max_value(a, b);
     path = file.substr(0, a + 1);//包含最后的那个'/'
     LOG_INFO << path;
     project = path + ".project";
     cproject = path + ".cproject";
-    xml_document doc;
-    if (doc.load_file(project.c_str())) {
-        for (auto i:doc.child("projectDescription").child("name")) {
-            LOG_INFO << i.value();
-            prj_name = i.value();
-        }
+    if (!doc.load_file(project.c_str())) {
+        throw ERROR("fail to open the file");
+    }
+    for (auto i:doc.child("projectDescription").child("name")) {
+        LOG_INFO << i.value();
+        prj_name = i.value();
+    }
+    if (!doc.load_file(cproject.c_str())) {
+        throw ERROR("fail to open the file");
     }
 }
 
-
 int prjCube::FindDefinedsymbols() {
-    xml_document doc;
-    if (doc.load_file(cproject.c_str())) {
-        xpath_node_set def = doc.select_nodes("//tool/option");
-        for (xpath_node i:def) {
-            if (string(i.node().attribute("id").value())
-                        .find("compiler.option.definedsymbols")
-                != string::npos) {
-                LOG_INFO << i.node().attribute("id").value();
-                for (auto j:i.node()) {
-                    LOG_INFO << j.attribute("value").value();
-                    definedsymbols.insert(j.attribute("value").value());
-                }
+    xpath_node_set def = doc.select_nodes("//tool/option");
+    for (xpath_node i:def) {
+        if (string(i.node().attribute("id").value())
+                    .find("compiler.option.definedsymbols")
+            != string::npos) {
+            LOG_INFO << i.node().attribute("id").value();
+            for (auto j:i.node()) {
+                LOG_INFO << j.attribute("value").value();
+                definedsymbols.insert(j.attribute("value").value());
             }
         }
     }
     return 0;
 }
 int prjCube::FindIncludePaths() {
-    xml_document doc;
-    if (doc.load_file(cproject.c_str())) {
-        xpath_node_set def = doc.select_nodes("//tool/option");
-        for (xpath_node i:def) {
-            if (string(i.node().attribute("id").value())
-                        .find("compiler.option.includepaths")
-                != string::npos) {
-                LOG_INFO << i.node().attribute("id").value();
-                for (auto j:i.node()) {
-                    LOG_INFO << j.attribute("value").value();
-                    string buf = j.attribute("value").value();
-                    includePaths.insert(replace_str(buf, "../", ""));
-                }
+    xpath_node_set def = doc.select_nodes("//tool/option");
+    for (xpath_node i:def) {
+        if (string(i.node().attribute("id").value())
+                    .find("compiler.option.includepaths")
+            != string::npos) {
+            LOG_INFO << i.node().attribute("id").value();
+            for (auto j:i.node()) {
+                LOG_INFO << j.attribute("value").value();
+                string buf = j.attribute("value").value();
+                includePaths.insert(replace_str(buf, "../", ""));
             }
         }
     }
     return 0;
 }
 int prjCube::FindSourseItems() {
-
-    xml_document doc;
     set<string> sourceEntries;
-    if (doc.load_file(cproject.c_str())) {
-        xpath_node_set def = doc.select_nodes("//configuration/sourceEntries/entry");
-        for (xpath_node i:def) {
-            LOG_INFO << i.node().attribute("name").value();
-            sourceEntries.insert(i.node().attribute("name").value());
-        }
+    xpath_node_set def = doc.select_nodes("//configuration/sourceEntries/entry");
+    for (xpath_node i:def) {
+        LOG_INFO << i.node().attribute("name").value();
+        sourceEntries.insert(i.node().attribute("name").value());
     }
     vector<string> files;
     for (auto i:sourceEntries) {
@@ -92,7 +75,7 @@ int prjCube::FindSourseItems() {
     }
     return 0;
 }
-bool prjCube::detect(std::string file) {
+bool prjCube::detect(const std::string &file) {
     if (file.find(".project") != std::string::npos) {
     } else if (file.find(".cproject") != std::string::npos) {
     } else {

@@ -1,8 +1,4 @@
-﻿//
-// Created by 17616 on 2020/12/14.
-//
-
-#ifndef VSPG_PRJMDK_H
+﻿#ifndef VSPG_PRJMDK_H
 #define VSPG_PRJMDK_H
 
 #include "prj.h"
@@ -10,8 +6,9 @@
 class prjMDK :public prj{
 private:
     std::string uvproj;
+    pugi::xml_document doc;
 public:
-    prjMDK(std::string file);
+    prjMDK(const std::string& file);
     int FindDefinedsymbols();
     int FindIncludePaths();
     int FindSourseItems();

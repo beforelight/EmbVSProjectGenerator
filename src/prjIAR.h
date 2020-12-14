@@ -1,16 +1,13 @@
-﻿//
-// Created by 17616 on 2020/12/14.
-//
-
-#ifndef VSPG_PRJIAR_H
+﻿#ifndef VSPG_PRJIAR_H
 #define VSPG_PRJIAR_H
 #include "prj.h"
 
 class prjIAR : public prj{
 private:
     std::string ewp;
+    pugi::xml_document doc;
 public:
-    prjIAR(std::string file);
+    prjIAR(const std::string& file);
     int FindDefinedsymbols();
     int FindIncludePaths();
     int FindSourseItems();
