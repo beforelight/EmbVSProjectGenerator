@@ -12,7 +12,7 @@ public:
     int FindDefinedsymbols();
     int FindIncludePaths();
     int FindSourseItems();
-    static bool detect(std::string file);
+    static bool detect(const std::string& file);
 };
 
 

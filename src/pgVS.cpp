@@ -20,7 +20,7 @@ int pgvs::Generate() {
     userGenerate();
     return 0;
 }
-int pgvs::slnGenerate(void) {
+int pgvs::slnGenerate() {
     //准备文件
     stringstream ss;
     string buf;
@@ -41,7 +41,7 @@ int pgvs::slnGenerate(void) {
     sinNew.close();
     return 0;
 }
-int pgvs::vcxprojGenerate(void) {
+int pgvs::vcxprojGenerate() {
     //准备文件
     stringstream ss;
     string buf;
@@ -74,18 +74,18 @@ int pgvs::vcxprojGenerate(void) {
     {
         subElement = titleElement->FirstChildElement("NMakePreprocessorDefinitions");
         buf = subElement->GetText();
-        for (set<string>::iterator i = prjPtr->definedsymbols.begin(); i != prjPtr->definedsymbols.end(); i++)
+        for (set<string>::iterator j = prjPtr->definedsymbols.begin(); j != prjPtr->definedsymbols.end(); j++)
         {
             buf += ";";
-            buf += *i;
+            buf += *j;
         }
         subElement->SetText(buf.c_str());
         newElement = ewp.NewElement("IncludePath");
         buf.clear();
-        for (set<string>::iterator i = prjPtr->includePaths.begin(); i != prjPtr->includePaths.end(); i++)
+        for (set<string>::iterator j = prjPtr->includePaths.begin(); j != prjPtr->includePaths.end(); j++)
         {
             buf += "$(MSBuildProjectDirectory)/";
-            string ibuf(*i);
+            string ibuf(*j);
             buf += replace_str(ibuf, "\\", "/");
             buf += ";";
         }
@@ -150,7 +150,7 @@ int pgvs::vcxprojGenerate(void) {
     ewp.SaveFile((prjPtr->path + prjPtr->prj_name + ".vcxproj").c_str());
     return 0;
 }
-int pgvs::filtersGenerate(void) {
+int pgvs::filtersGenerate() {
     //准备文件
     stringstream ss;
     string buf;
@@ -213,10 +213,10 @@ int pgvs::filtersGenerate(void) {
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             string b = replace_str(ibuf, "/", "\\");
             replace_str(b, "..\\", "");
-            if (b.find("\\") != string::npos)
+            if (b.find('\\') != string::npos)
             {
                 newElement2 = ewp.NewElement("Filter");
-                int a = b.find_last_of("\\");
+                int a = b.find_last_of('\\');
                 b = b.substr(0, a);
                 newElement2->SetText(b.c_str());
                 newElement->InsertEndChild(newElement2);
@@ -243,10 +243,10 @@ int pgvs::filtersGenerate(void) {
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             string b = replace_str(ibuf, "/", "\\");
             replace_str(b, "..\\", "");
-            if (b.find("\\") != string::npos)
+            if (b.find('\\') != string::npos)
             {
                 newElement2 = ewp.NewElement("Filter");
-                int a = b.find_last_of("\\");
+                int a = b.find_last_of('\\');
                 b = b.substr(0, a);
                 newElement2->SetText(b.c_str());
                 newElement->InsertEndChild(newElement2);
@@ -274,10 +274,10 @@ int pgvs::filtersGenerate(void) {
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             string b = replace_str(ibuf, "/", "\\");
             replace_str(b, "..\\", "");
-            if (b.find("\\") != string::npos)
+            if (b.find('\\') != string::npos)
             {
                 newElement2 = ewp.NewElement("Filter");
-                int a = b.find_last_of("\\");
+                int a = b.find_last_of('\\');
                 b = b.substr(0, a);
                 newElement2->SetText(b.c_str());
                 newElement->InsertEndChild(newElement2);
@@ -288,7 +288,7 @@ int pgvs::filtersGenerate(void) {
     ewp.SaveFile((prjPtr->path + prjPtr->prj_name + ".vcxproj.filters").c_str());
     return 0;
 }
-int pgvs::userGenerate(void) {
+int pgvs::userGenerate() {
     //准备文件
     stringstream ss;
     string buf;
@@ -323,7 +323,7 @@ pgvs::UniqueIdentifier::~UniqueIdentifier() {
 }
 
 const char randchar[] = {"0123456789abcdef"};
-void pgvs::UniqueIdentifier::Refresh(void) {
+void pgvs::UniqueIdentifier::Refresh() {
     std::string::clear();
     //<UniqueIdentifier>{dc2250e4-e44f-4b53-925e-f71d02f20bba}</UniqueIdentifier>
     std::string::append(1, '{');

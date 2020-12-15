@@ -36,11 +36,11 @@ int pgVSCode::Generate() {
         throw ERROR("parse json error");
     }
     fin.close();
-    for (auto i:prjPtr->definedsymbols) {
+    for (const auto& i:prjPtr->definedsymbols) {
         oJson["configurations"][0]["defines"].Add(i);
     }
 
-    for (auto i:prjPtr->includePaths) {
+    for (const auto& i:prjPtr->includePaths) {
         std::string str = "${workspaceFolder}/";
         str += i;
         oJson["configurations"][0]["includePath"].Add(str);

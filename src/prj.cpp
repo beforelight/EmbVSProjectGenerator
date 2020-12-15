@@ -16,8 +16,8 @@ int prj::FindGroup() {
         string ibuf(*i);
         string b = replace_str(ibuf, "/", "\\");
 //        b = replace_str(b, "..\\", "");
-        if (b.size()) {
-            while ((a = b.find("\\", a + 1)) != string::npos) {
+        if (!b.empty()) {
+            while ((a = b.find('\\', a + 1)) != string::npos) {
                 srcGroup.insert(b.substr(0, a));
             }
         }
@@ -37,7 +37,7 @@ std::string &replace_str(std::string &str, const std::string &to_replaced, const
     return str;
 }
 void listFiles(const filesystem::path &dir, vector<std::string> &list) {
-    for (auto i:directory_iterator(dir)) {
+    for (const auto& i:directory_iterator(dir)) {
         if (i.is_directory()) {
             listFiles(i, list);
         } else {

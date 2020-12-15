@@ -2,7 +2,7 @@
 using namespace pugi;
 using namespace std;
 prj_ptr::login loginMCUX(prjMCUX::detect, [](const string & file){return new prjMCUX(file);});
-bool prjMCUX::detect(std::string file) {
+bool prjMCUX::detect(const std::string& file) {
     if (file.find(".project") != std::string::npos) {
     } else if (file.find(".cproject") != std::string::npos) {
     } else {
@@ -76,7 +76,7 @@ int prjMCUX::FindIncludePaths() {
             for (auto j:i.node()) {
                 LOG_INFO << j.attribute("value").value();
                 string str = j.attribute("value").value();
-                if (str.find("$") != string::npos) {
+                if (str.find('$') != string::npos) {
 //                        replace_str(str, "&quot;", "");
                     replace_str(str, "\"${workspace_loc:/${ProjName}/", "");
                     replace_str(str, "}\"", "");
@@ -97,11 +97,11 @@ int prjMCUX::FindSourseItems() {
         sourceEntries.insert(i.node().attribute("name").value());
     }
     vector<string> files;
-    for (auto i:sourceEntries) {
+    for (const auto& i:sourceEntries) {
         listFiles(path + i, files);
     }
 
-    for (auto i:files) {
+    for (const auto& i:files) {
         LOG_INFO << i;
         srcItems.insert(i.substr(path.size()));
     }

@@ -9,11 +9,11 @@ int main(int argc, char *argv[]) {
     //获取程序的路径，便于访问资源文件
     path_exe = _pgmptr;
     REPLACE_CHAR(path_exe);
-    if (path_exe.find_last_of("/") != string::npos) {
-        path_exe = path_exe.substr(0, path_exe.find_last_of("/"));//exe目录
+    if (path_exe.find_last_of('/') != string::npos) {
+        path_exe = path_exe.substr(0, path_exe.find_last_of('/'));//exe目录
     }
-    if (path_exe.find_last_of("/") != string::npos) {
-        path_exe = path_exe.substr(0, path_exe.find_last_of("/") + 1);//+1保留最后的那个/ exe目录上一级
+    if (path_exe.find_last_of('/') != string::npos) {
+        path_exe = path_exe.substr(0, path_exe.find_last_of('/') + 1);//+1保留最后的那个/ exe目录上一级
     }
     //将c程序参数转换为c++数组
     std::vector<std::string> args;

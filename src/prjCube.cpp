@@ -65,11 +65,11 @@ int prjCube::FindSourseItems() {
         sourceEntries.insert(i.node().attribute("name").value());
     }
     vector<string> files;
-    for (auto i:sourceEntries) {
+    for (const auto& i:sourceEntries) {
         listFiles(path + i, files);
     }
 
-    for (auto i:files) {
+    for (const auto& i:files) {
         LOG_INFO << i;
         srcItems.insert(i.substr(path.size()));
     }

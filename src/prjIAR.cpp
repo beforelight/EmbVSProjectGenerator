@@ -47,7 +47,7 @@ int prjIAR::FindDefinedsymbols() {
 }
 int prjIAR::FindIncludePaths() {
     string str;
-    constexpr char *Text = "$PROJ_DIR$/";
+    constexpr const char *Text = "$PROJ_DIR$/";
     xpath_node_set def = doc.select_nodes("//configuration/settings/data/option");
     for (auto i:def) {
         LOG_INFO << i.node().child("name").text().get();
@@ -64,7 +64,7 @@ int prjIAR::FindIncludePaths() {
 }
 int prjIAR::FindSourseItems() {
     string str;
-    constexpr char *Text = "$PROJ_DIR$/";
+    constexpr const char *Text = "$PROJ_DIR$/";
     xpath_node_set def = doc.select_nodes("//group/file/name");
     for (auto i:def) {
         str = i.node().text().get();
