@@ -74,18 +74,17 @@ int pgvs::vcxprojGenerate() {
     {
         subElement = titleElement->FirstChildElement("NMakePreprocessorDefinitions");
         buf = subElement->GetText();
-        for (set<string>::iterator j = prjPtr->definedsymbols.begin(); j != prjPtr->definedsymbols.end(); j++)
+        for (const auto & definedsymbol : prjPtr->definedsymbols)
         {
             buf += ";";
-            buf += *j;
+            buf += definedsymbol;
         }
         subElement->SetText(buf.c_str());
         newElement = ewp.NewElement("IncludePath");
         buf.clear();
-        for (set<string>::iterator j = prjPtr->includePaths.begin(); j != prjPtr->includePaths.end(); j++)
+        for (auto ibuf : prjPtr->includePaths)
         {
             buf += "$(MSBuildProjectDirectory)/";
-            string ibuf(*j);
             buf += replace_str(ibuf, "\\", "/");
             buf += ";";
         }
@@ -97,12 +96,12 @@ int pgvs::vcxprojGenerate() {
     //3.添加源文件分组
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("ItemGroup");
     //buf.clear();
-    for (set<string>::iterator i = prjPtr->srcItems.begin(); i != prjPtr->srcItems.end(); i++)
+    for (const auto & srcItem : prjPtr->srcItems)
     {
-        if (-1 != (*i).find(".c"))
+        if (-1 != srcItem.find(".c"))
         {
             newElement = ewp.NewElement("ClCompile");
-            string ibuf(*i);
+            string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             titleElement->InsertEndChild(newElement);
         }
@@ -116,12 +115,12 @@ int pgvs::vcxprojGenerate() {
 
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("ItemGroup");
     //buf.clear();
-    for (set<string>::iterator i = prjPtr->srcItems.begin(); i != prjPtr->srcItems.end(); i++)
+    for (const auto & srcItem : prjPtr->srcItems)
     {
-        if (-1 != (*i).find(".h"))
+        if (-1 != srcItem.find(".h"))
         {
             newElement = ewp.NewElement("ClInclude");
-            string ibuf(*i);
+            string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             titleElement->InsertEndChild(newElement);
         }
@@ -135,13 +134,13 @@ int pgvs::vcxprojGenerate() {
 
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("ItemGroup");
     //buf.clear();
-    for (set<string>::iterator i = prjPtr->srcItems.begin(); i != prjPtr->srcItems.end(); i++)
+    for (const auto & srcItem : prjPtr->srcItems)
     {
-        if (!(-1 != (*i).find(".h")
-              || -1 != (*i).find(".c")))
+        if (!(-1 != srcItem.find(".h")
+              || -1 != srcItem.find(".c")))
         {
             newElement = ewp.NewElement("None");
-            string ibuf(*i);
+            string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             titleElement->InsertEndChild(newElement);
         }
@@ -172,7 +171,7 @@ int pgvs::filtersGenerate() {
     //进行xml修改
     XMLDocument ewp;
     XMLElement* titleElement;
-    XMLElement* subElement;
+//    XMLElement* subElement;
     XMLElement* newElement;
     XMLElement* newElement2;
     ewp.LoadFile((prjPtr->path + prjPtr->prj_name + ".vcxproj.filters").c_str());
@@ -180,10 +179,9 @@ int pgvs::filtersGenerate() {
     //1.
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("ItemGroup");
     titleElement->DeleteChildren();
-    for (set<string>::iterator i = prjPtr->srcGroup.begin(); i != prjPtr->srcGroup.end(); i++)
+    for (auto ibuf : prjPtr->srcGroup)
     {
         newElement = ewp.NewElement("Filter");
-        string ibuf(*i);
         replace_str(ibuf, "..\\", "");
         if(ibuf==".."){
             continue;
@@ -204,12 +202,12 @@ int pgvs::filtersGenerate() {
                                newElement);
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("ItemGroup");
     //buf.clear();
-    for (set<string>::iterator i = prjPtr->srcItems.begin(); i != prjPtr->srcItems.end(); i++)
+    for (const auto & srcItem : prjPtr->srcItems)
     {
-        if (-1 != (*i).find(".c"))
+        if (-1 != srcItem.find(".c"))
         {
             newElement = ewp.NewElement("ClCompile");
-            string ibuf(*i);
+            string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             string b = replace_str(ibuf, "/", "\\");
             replace_str(b, "..\\", "");
@@ -234,12 +232,12 @@ int pgvs::filtersGenerate() {
 
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("ItemGroup");
     //buf.clear();
-    for (set<string>::iterator i = prjPtr->srcItems.begin(); i != prjPtr->srcItems.end(); i++)
+    for (const auto & srcItem : prjPtr->srcItems)
     {
-        if (-1 != (*i).find(".h"))
+        if (-1 != srcItem.find(".h"))
         {
             newElement = ewp.NewElement("ClInclude");
-            string ibuf(*i);
+            string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             string b = replace_str(ibuf, "/", "\\");
             replace_str(b, "..\\", "");
@@ -264,13 +262,13 @@ int pgvs::filtersGenerate() {
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("ItemGroup");
 //    assert(titleElement);
     //buf.clear();
-    for (set<string>::iterator i = prjPtr->srcItems.begin(); i != prjPtr->srcItems.end(); i++)
+    for (const auto & srcItem : prjPtr->srcItems)
     {
-        if (!(-1 != (*i).find(".h")
-              || -1 != (*i).find(".c")))
+        if (!(-1 != srcItem.find(".h")
+              || -1 != srcItem.find(".c")))
         {
             newElement = ewp.NewElement("None");
-            string ibuf(*i);
+            string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
             string b = replace_str(ibuf, "/", "\\");
             replace_str(b, "..\\", "");
