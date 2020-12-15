@@ -7,7 +7,9 @@ using namespace std;
 string pathExe;//包括最后的/，是程序上上一级绝对目录
 int main(int argc, char *argv[]) {
     //获取程序的路径，便于访问资源文件
-    pathExe = _pgmptr;
+    char* pgmptr;
+    _get_pgmptr(&pgmptr);
+    pathExe = pgmptr;
     REPLACE_CHAR(pathExe);
     if (pathExe.find_last_of('/') != string::npos) {
         pathExe = pathExe.substr(0, pathExe.find_last_of('/'));//exe目录

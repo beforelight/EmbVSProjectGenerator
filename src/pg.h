@@ -1,8 +1,4 @@
-﻿//
-// Created by 17616 on 2020/12/12.
-//
-
-#ifndef VSPG_PG_H
+﻿#ifndef VSPG_PG_H
 #define VSPG_PG_H
 
 #include "prj.h"

@@ -1,8 +1,4 @@
-﻿//
-// Created by 17616 on 2020/12/12.
-//
-
-#include "pg.h"
+﻿#include "pg.h"
 
 #include <utility>
 pg::pg(prj_ptr &ptr, std::string _pathExe) : prjPtr(ptr), pathExe(std::move(_pathExe)) {}
