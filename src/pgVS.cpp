@@ -1,8 +1,4 @@
-﻿//
-// Created by 17616 on 2020/12/12.
-//
-
-#include "pgVS.h"
+﻿#include "pgVS.h"
 #include <sstream>
 #include <fstream>
 #include "error.h"
@@ -10,6 +6,11 @@
 #include <ctime>
 #include "tinyxml2.h"
 
+pg::login loginVS("vs",
+                     [](prj_ptr &ptr, const std::string &exe_path) {
+                         return new pgvs(ptr, exe_path);
+                     }
+);
 using namespace std;
 using namespace tinyxml2;
 int pgvs::Generate() {

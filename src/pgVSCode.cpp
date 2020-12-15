@@ -1,13 +1,15 @@
-﻿//
-// Created by 17616 on 2020/12/12.
-//
-
-#include <fstream>
+﻿#include <fstream>
 #include <sstream>
 #include "pgVSCode.h"
 #include "CJsonObject.hpp"
 #include "error.h"
 #include <filesystem>
+
+pg::login loginCode("vs",
+                  [](prj_ptr &ptr, const std::string &exe_path) {
+                      return new pgVSCode(ptr, exe_path);
+                  }
+);
 int pgVSCode::Generate() {
     std::ifstream fin;
 #if defined(__linux__)

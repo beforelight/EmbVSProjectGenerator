@@ -1,15 +1,11 @@
-﻿//
-// Created by 17616 on 2020/12/12.
-//
-
-#ifndef VSPG_PGVS_H
+﻿#ifndef VSPG_PGVS_H
 #define VSPG_PGVS_H
 #include "pg.h"
 
 class pgvs : public pg {
 public:
     ~pgvs() {};
-    pgvs(prj_ptr &ptr,std::string &exe_path) : pg(ptr,exe_path) {};
+    pgvs(prj_ptr &ptr,const std::string &exe_path) : pg(ptr,exe_path) {};
     int Generate();
     int slnGenerate(void);
     int vcxprojGenerate(void);

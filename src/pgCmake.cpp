@@ -1,10 +1,11 @@
-﻿//
-// Created by 17616 on 2020/12/12.
-//
-
-#include "pgCmake.h"
+﻿#include "pgCmake.h"
 #include <fstream>
 #include "error.h"
+pg::login loginCmake("cmake",
+                  [](prj_ptr &ptr, const std::string &exe_path) {
+                      return new pgCmake(ptr, exe_path);
+                  }
+);
 using namespace std;
 int pgCmake::Generate() {
     ofstream cmake(prjPtr->path + "CMakeLists.txt");
@@ -13,7 +14,6 @@ int pgCmake::Generate() {
     }
     cmake << "cmake_minimum_required(VERSION 3.15)" << endl;
     cmake << "project(" << prjPtr->prj_name << ")" << endl;
-//    cmake << "set(PRJDIR  " << REPLACE_CHAR(prjPtr->path) << ")" << endl;
     for (auto i:prjPtr->definedsymbols) {
         cmake << "add_definitions(-D" << i << ")" << endl;
     }
