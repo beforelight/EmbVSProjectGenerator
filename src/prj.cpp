@@ -5,20 +5,18 @@ int prj::Find() {
     FindDefinedsymbols();
     FindIncludePaths();
     FindSourseItems();
-    FindGroup();
+    FindGroups();
     return 0;
 }
 prj::~prj() = default;
 prj::prj() = default;
-int prj::FindGroup() {
-    int a = 0;
-    for (auto i = srcItems.begin(); i != srcItems.end(); i++) {
-        string ibuf(*i);
-        string b = replace_str(ibuf, "/", "\\");
-//        b = replace_str(b, "..\\", "");
-        if (!b.empty()) {
-            while ((a = b.find('\\', a + 1)) != string::npos) {
-                srcGroup.insert(b.substr(0, a));
+int prj::FindGroups() {
+    int length_a = 0;
+    for (auto srcItem : srcItems) {
+        string str = replace_str(srcItem, "/", "\\");
+        if (!str.empty()) {
+            while ((length_a = str.find('\\', length_a + 1)) != string::npos) {
+                srcGroups.insert(str.substr(0, length_a));
             }
         }
     }

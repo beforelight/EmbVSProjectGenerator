@@ -9,9 +9,9 @@ private:
     pugi::xml_document doc;
 public:
     prjMCUX(const std::string& file);
-    int FindDefinedsymbols();
-    int FindIncludePaths();
-    int FindSourseItems();
+    int FindDefinedsymbols() override;
+    int FindIncludePaths() override;
+    int FindSourseItems() override;
     static bool detect(const std::string& file);
 };
 

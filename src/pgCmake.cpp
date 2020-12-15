@@ -8,12 +8,12 @@ pg::login loginCmake("cmake",
 );
 using namespace std;
 int pgCmake::Generate() {
-    ofstream cmake(prjPtr->path + "CMakeLists.txt");
+    ofstream cmake(prjPtr->pathPrj + "CMakeLists.txt");
     if (!cmake.is_open()) {
         throw ERROR("fail to open the file");
     }
     cmake << "cmake_minimum_required(VERSION 3.15)" << endl;
-    cmake << "project(" << prjPtr->prj_name << ")" << endl;
+    cmake << "project(" << prjPtr->prjName << ")" << endl;
     for (const auto& i:prjPtr->definedsymbols) {
         cmake << "add_definitions(-D" << i << ")" << endl;
     }
@@ -22,10 +22,10 @@ int pgCmake::Generate() {
         cmake << "include_directories(" << REPLACE_CHAR(i) << ")" << endl;
     }
     cmake << "file(GLOB_RECURSE SOURCES ";
-    for (auto i:prjPtr->srcGroup) {
+    for (auto i:prjPtr->srcGroups) {
         cmake << '\t' << REPLACE_CHAR(i) << "/*.*";
     }
     cmake << ')' << endl;
-    cmake << "add_executable(" << prjPtr->prj_name << " ${SOURCES})" << endl;
+    cmake << "add_executable(" << prjPtr->prjName << " ${SOURCES})" << endl;
     return 0;
 }

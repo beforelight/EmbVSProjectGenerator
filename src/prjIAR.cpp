@@ -17,11 +17,11 @@ prjIAR::prjIAR(const std::string &file) {
     if (!detect(file)) {
         throw std::invalid_argument("project file path =" + file);
     }
-    int a = file.find_last_of('\\');
-    int b = file.find_last_of('/');
-    a = _Max_value(a, b);
-    path = file.substr(0, a + 1);//包含最后的那个'/'
-    LOG_INFO << path;
+    int length_a = file.find_last_of('\\');
+    int length_b = file.find_last_of('/');
+    length_a = _Max_value(length_a, length_b);
+    pathPrj = file.substr(0, length_a + 1);//包含最后的那个'/'
+    LOG_INFO << pathPrj;
     ewp = file.substr(0, file.find_last_of('.')) + ".ewp";
     LOG_INFO << ewp;
     if (doc.load_file(ewp.c_str())) {
@@ -29,12 +29,12 @@ prjIAR::prjIAR(const std::string &file) {
     }
     for (auto i:doc.child("project").child("configuration").child("name")) {
         LOG_INFO << i.value();
-        prj_name = i.value();
+        prjName = i.value();
     }
 }
 int prjIAR::FindDefinedsymbols() {
-    xpath_node_set def = doc.select_nodes("//configuration/settings/data/option");
-    for (auto i:def) {
+    xpath_node_set nodeSet = doc.select_nodes("//configuration/settings/data/option");
+    for (auto i:nodeSet) {
         LOG_INFO << i.node().child("name").text().get();
         if (string(i.node().child("name").text().get()) == "CCDefines") {
             for (auto j:i.node().select_nodes("state")) {
@@ -48,8 +48,8 @@ int prjIAR::FindDefinedsymbols() {
 int prjIAR::FindIncludePaths() {
     string str;
     constexpr const char *Text = "$PROJ_DIR$/";
-    xpath_node_set def = doc.select_nodes("//configuration/settings/data/option");
-    for (auto i:def) {
+    xpath_node_set nodeSet = doc.select_nodes("//configuration/settings/data/option");
+    for (auto i:nodeSet) {
         LOG_INFO << i.node().child("name").text().get();
         if (string(i.node().child("name").text().get()) == "CCIncludePath2") {
             for (auto j:i.node().select_nodes("state")) {
@@ -65,8 +65,8 @@ int prjIAR::FindIncludePaths() {
 int prjIAR::FindSourseItems() {
     string str;
     constexpr const char *Text = "$PROJ_DIR$/";
-    xpath_node_set def = doc.select_nodes("//group/file/name");
-    for (auto i:def) {
+    xpath_node_set nodeSet = doc.select_nodes("//group/file/name");
+    for (auto i:nodeSet) {
         str = i.node().text().get();
         str = str.substr(strlen(Text), str.size() - strlen(Text));
         LOG_INFO << str;

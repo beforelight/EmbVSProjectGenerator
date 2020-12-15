@@ -8,54 +8,54 @@
 
 pg::login loginVS("vs",
                      [](prj_ptr &ptr, const std::string &exe_path) {
-                         return new pgvs(ptr, exe_path);
+                         return new pgVS(ptr, exe_path);
                      }
 );
 using namespace std;
 using namespace tinyxml2;
-int pgvs::Generate() {
+int pgVS::Generate() {
     slnGenerate();
     vcxprojGenerate();
     filtersGenerate();
     userGenerate();
     return 0;
 }
-int pgvs::slnGenerate() {
+int pgVS::slnGenerate() {
     //准备文件
     stringstream ss;
     string buf;
-    ofstream sinNew(prjPtr->path + prjPtr->prj_name + ".sln");
-    ifstream sinTemp(path_exe + resource + "EmbProjectTemplate.sln");
+    ofstream sinNew(prjPtr->pathPrj + prjPtr->prjName + ".sln");
+    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.sln");
 
-    LOG_INFO<<".sin path:"<<prjPtr->path + prjPtr->prj_name + ".sln";
-    LOG_INFO<<".sin path:"<<path_exe + resource + "EmbProjectTemplate.sln";
+    LOG_INFO<<".sin path:"<< prjPtr->pathPrj + prjPtr->prjName + ".sln";
+    LOG_INFO << ".sin path:" << pathExe + resource + "EmbProjectTemplate.sln";
     if (!sinNew.is_open()
         || !sinTemp.is_open()) {
         throw ERROR("fail to open the file");
     }
     ss << sinTemp.rdbuf();
     buf = ss.str();
-    replace_str(buf, "EmbProjectTemplate", prjPtr->prj_name);
+    replace_str(buf, "EmbProjectTemplate", prjPtr->prjName);
     sinNew << buf;
     sinTemp.close();
     sinNew.close();
     return 0;
 }
-int pgvs::vcxprojGenerate() {
+int pgVS::vcxprojGenerate() {
     //准备文件
     stringstream ss;
     string buf;
-    ofstream sinNew(prjPtr->path + prjPtr->prj_name + ".vcxproj");
-    ifstream sinTemp(path_exe + resource + "EmbProjectTemplate.vcxproj");
-    LOG_INFO<<".vcxproj path:"<<prjPtr->path + prjPtr->prj_name + ".vcxproj";
-    LOG_INFO<<".vcxproj path:"<<path_exe + resource + "EmbProjectTemplate.vcxproj";
+    ofstream sinNew(prjPtr->pathPrj + prjPtr->prjName + ".vcxproj");
+    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj");
+    LOG_INFO<<".vcxproj path:"<< prjPtr->pathPrj + prjPtr->prjName + ".vcxproj";
+    LOG_INFO << ".vcxproj path:" << pathExe + resource + "EmbProjectTemplate.vcxproj";
     if (!sinNew.is_open()
         || !sinTemp.is_open()) {
         throw ERROR("fail to open the file");
     }
     ss << sinTemp.rdbuf();
     buf = ss.str();
-    replace_str(buf, "EmbProjectTemplate", prjPtr->prj_name);
+    replace_str(buf, "EmbProjectTemplate", prjPtr->prjName);
     sinNew << buf;
     sinTemp.close();
     sinNew.close();
@@ -67,7 +67,7 @@ int pgvs::vcxprojGenerate() {
     XMLElement* titleElement;
     XMLElement* subElement;
     XMLElement* newElement;
-    ewp.LoadFile((prjPtr->path + prjPtr->prj_name + ".vcxproj").c_str());
+    ewp.LoadFile((prjPtr->pathPrj + prjPtr->prjName + ".vcxproj").c_str());
 
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("PropertyGroup");
     for (size_t i = 0; i < 4; i++)
@@ -146,24 +146,24 @@ int pgvs::vcxprojGenerate() {
         }
     }
 
-    ewp.SaveFile((prjPtr->path + prjPtr->prj_name + ".vcxproj").c_str());
+    ewp.SaveFile((prjPtr->pathPrj + prjPtr->prjName + ".vcxproj").c_str());
     return 0;
 }
-int pgvs::filtersGenerate() {
+int pgVS::filtersGenerate() {
     //准备文件
     stringstream ss;
     string buf;
-    ofstream sinNew(prjPtr->path + prjPtr->prj_name + ".vcxproj.filters");
-    ifstream sinTemp(path_exe + resource + "EmbProjectTemplate.vcxproj.filters");
-    LOG_INFO<<".vcxproj.filters path:"<<prjPtr->path + prjPtr->prj_name + ".vcxproj.filters";
-    LOG_INFO<<".vcxproj.filters path:"<<path_exe + resource + "EmbProjectTemplate.vcxproj.filters";
+    ofstream sinNew(prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.filters");
+    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj.filters");
+    LOG_INFO<<".vcxproj.filters path:"<< prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.filters";
+    LOG_INFO << ".vcxproj.filters path:" << pathExe + resource + "EmbProjectTemplate.vcxproj.filters";
     if (!sinNew.is_open()
         || !sinTemp.is_open()) {
         throw ERROR("fail to open the file");
     }
     ss << sinTemp.rdbuf();
     buf = ss.str();
-    replace_str(buf, "EmbProjectTemplate", prjPtr->prj_name);
+    replace_str(buf, "EmbProjectTemplate", prjPtr->prjName);
     sinNew << buf;
     sinTemp.close();
     sinNew.close();
@@ -174,12 +174,12 @@ int pgvs::filtersGenerate() {
 //    XMLElement* subElement;
     XMLElement* newElement;
     XMLElement* newElement2;
-    ewp.LoadFile((prjPtr->path + prjPtr->prj_name + ".vcxproj.filters").c_str());
+    ewp.LoadFile((prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.filters").c_str());
 
     //1.
     titleElement = ewp.FirstChildElement("Project")->LastChildElement("ItemGroup");
     titleElement->DeleteChildren();
-    for (auto ibuf : prjPtr->srcGroup)
+    for (auto ibuf : prjPtr->srcGroups)
     {
         newElement = ewp.NewElement("Filter");
         replace_str(ibuf, "..\\", "");
@@ -188,8 +188,8 @@ int pgvs::filtersGenerate() {
         }
         newElement->SetAttribute("Include", ibuf.c_str());
         newElement2 = ewp.NewElement("UniqueIdentifier");
-        UniqueIdentifier a;
-        newElement2->SetText(a.c_str());
+        UniqueIdentifier uniqueIdentifier;
+        newElement2->SetText(uniqueIdentifier.c_str());
         newElement->InsertFirstChild(newElement2);
         titleElement->InsertEndChild(newElement);
         //cout << (*i) << endl;
@@ -209,14 +209,14 @@ int pgvs::filtersGenerate() {
             newElement = ewp.NewElement("ClCompile");
             string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
-            string b = replace_str(ibuf, "/", "\\");
-            replace_str(b, "..\\", "");
-            if (b.find('\\') != string::npos)
+            string str = replace_str(ibuf, "/", "\\");
+            replace_str(str, "..\\", "");
+            if (str.find('\\') != string::npos)
             {
                 newElement2 = ewp.NewElement("Filter");
-                int a = b.find_last_of('\\');
-                b = b.substr(0, a);
-                newElement2->SetText(b.c_str());
+                int length_a = str.find_last_of('\\');
+                str = str.substr(0, length_a);
+                newElement2->SetText(str.c_str());
                 newElement->InsertEndChild(newElement2);
             }
 
@@ -239,14 +239,14 @@ int pgvs::filtersGenerate() {
             newElement = ewp.NewElement("ClInclude");
             string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
-            string b = replace_str(ibuf, "/", "\\");
-            replace_str(b, "..\\", "");
-            if (b.find('\\') != string::npos)
+            string str = replace_str(ibuf, "/", "\\");
+            replace_str(str, "..\\", "");
+            if (str.find('\\') != string::npos)
             {
                 newElement2 = ewp.NewElement("Filter");
-                int a = b.find_last_of('\\');
-                b = b.substr(0, a);
-                newElement2->SetText(b.c_str());
+                int length_a = str.find_last_of('\\');
+                str = str.substr(0, length_a);
+                newElement2->SetText(str.c_str());
                 newElement->InsertEndChild(newElement2);
             }
             titleElement->InsertEndChild(newElement);
@@ -270,38 +270,38 @@ int pgvs::filtersGenerate() {
             newElement = ewp.NewElement("None");
             string ibuf(srcItem);
             newElement->SetAttribute("Include", replace_str(ibuf, "/", "\\").c_str());
-            string b = replace_str(ibuf, "/", "\\");
-            replace_str(b, "..\\", "");
-            if (b.find('\\') != string::npos)
+            string str = replace_str(ibuf, "/", "\\");
+            replace_str(str, "..\\", "");
+            if (str.find('\\') != string::npos)
             {
                 newElement2 = ewp.NewElement("Filter");
-                int a = b.find_last_of('\\');
-                b = b.substr(0, a);
-                newElement2->SetText(b.c_str());
+                int length_a = str.find_last_of('\\');
+                str = str.substr(0, length_a);
+                newElement2->SetText(str.c_str());
                 newElement->InsertEndChild(newElement2);
             }
             titleElement->InsertEndChild(newElement);
         }
     }
-    ewp.SaveFile((prjPtr->path + prjPtr->prj_name + ".vcxproj.filters").c_str());
+    ewp.SaveFile((prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.filters").c_str());
     return 0;
 }
-int pgvs::userGenerate() {
+int pgVS::userGenerate() {
     //准备文件
     stringstream ss;
     string buf;
-    ofstream sinNew(prjPtr->path + prjPtr->prj_name + ".vcxproj.user");
-    ifstream sinTemp(path_exe + resource + "EmbProjectTemplate.vcxproj.user");
+    ofstream sinNew(prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.user");
+    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj.user");
 
-    LOG_INFO<<".vcxproj.user path:"<<prjPtr->path + prjPtr->prj_name +".vcxproj.user";
-    LOG_INFO<<".vcxproj.user path:"<<path_exe + resource + "EmbProjectTemplate.vcxproj.user";
+    LOG_INFO<<".vcxproj.user path:"<< prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.user";
+    LOG_INFO << ".vcxproj.user path:" << pathExe + resource + "EmbProjectTemplate.vcxproj.user";
     if (!sinNew.is_open()
         || !sinTemp.is_open()) {
         throw ERROR("fail to open the file");
     }
     ss << sinTemp.rdbuf();
     buf = ss.str();
-    replace_str(buf, "EmbProjectTemplate", prjPtr->prj_name);
+    replace_str(buf, "EmbProjectTemplate", prjPtr->prjName);
     sinNew << buf;
     sinTemp.close();
     sinNew.close();
@@ -309,7 +309,7 @@ int pgvs::userGenerate() {
 }
 
 
-pgvs::UniqueIdentifier::UniqueIdentifier() {
+pgVS::UniqueIdentifier::UniqueIdentifier() {
     if (timeSrandSeed == 0) {
         srand(time(NULL));
         timeSrandSeed = 1;
@@ -317,43 +317,43 @@ pgvs::UniqueIdentifier::UniqueIdentifier() {
     Refresh();
 }
 
-pgvs::UniqueIdentifier::~UniqueIdentifier() {
+pgVS::UniqueIdentifier::~UniqueIdentifier() {
 }
 
-const char randchar[] = {"0123456789abcdef"};
-void pgvs::UniqueIdentifier::Refresh() {
+const char randCharSet[] = {"0123456789abcdef"};
+void pgVS::UniqueIdentifier::Refresh() {
     std::string::clear();
     //<UniqueIdentifier>{dc2250e4-e44f-4b53-925e-f71d02f20bba}</UniqueIdentifier>
     std::string::append(1, '{');
     for (size_t i = 0; i < 8; i++) {
-        int a = rand() % strlen(randchar);
-        std::string::append(1, randchar[a]);
+        int a = rand() % strlen(randCharSet);
+        std::string::append(1, randCharSet[a]);
     }
 
     std::string::append("-");
     for (size_t i = 0; i < 4; i++) {
-        int a = rand() % strlen(randchar);
-        std::string::append(1, randchar[a]);
+        int a = rand() % strlen(randCharSet);
+        std::string::append(1, randCharSet[a]);
     }
 
     std::string::append("-");
     for (size_t i = 0; i < 4; i++) {
-        int a = rand() % strlen(randchar);
-        std::string::append(1, randchar[a]);
+        int a = rand() % strlen(randCharSet);
+        std::string::append(1, randCharSet[a]);
     }
 
     std::string::append("-");
     for (size_t i = 0; i < 4; i++) {
-        int a = rand() % strlen(randchar);
-        std::string::append(1, randchar[a]);
+        int a = rand() % strlen(randCharSet);
+        std::string::append(1, randCharSet[a]);
     }
 
     std::string::append("-");
     for (size_t i = 0; i < 12; i++) {
-        int a = rand() % strlen(randchar);
-        std::string::append(1, randchar[a]);
+        int a = rand() % strlen(randCharSet);
+        std::string::append(1, randCharSet[a]);
     }
 
     std::string::append(1, '}');
 }
-int pgvs::UniqueIdentifier::timeSrandSeed = 0;
+int pgVS::UniqueIdentifier::timeSrandSeed = 0;

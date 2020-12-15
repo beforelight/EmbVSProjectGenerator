@@ -7,19 +7,19 @@ prjCube::prjCube(const std::string &file) {
         throw ERROR("not support");
     }
     definedsymbols.insert("__GNUC__");
-    int a = file.find_last_of('\\');
-    int b = file.find_last_of('/');
-    a = _Max_value(a, b);
-    path = file.substr(0, a + 1);//包含最后的那个'/'
-    LOG_INFO << path;
-    project = path + ".project";
-    cproject = path + ".cproject";
+    int length_a = file.find_last_of('\\');
+    int length_b = file.find_last_of('/');
+    length_a = _Max_value(length_a, length_b);
+    pathPrj = file.substr(0, length_a + 1);//包含最后的那个'/'
+    LOG_INFO << pathPrj;
+    project = pathPrj + ".project";
+    cproject = pathPrj + ".cproject";
     if (!doc.load_file(project.c_str())) {
         throw ERROR("fail to open the file");
     }
     for (auto i:doc.child("projectDescription").child("name")) {
         LOG_INFO << i.value();
-        prj_name = i.value();
+        prjName = i.value();
     }
     if (!doc.load_file(cproject.c_str())) {
         throw ERROR("fail to open the file");
@@ -27,8 +27,8 @@ prjCube::prjCube(const std::string &file) {
 }
 
 int prjCube::FindDefinedsymbols() {
-    xpath_node_set def = doc.select_nodes("//tool/option");
-    for (xpath_node i:def) {
+    xpath_node_set nodeSet = doc.select_nodes("//tool/option");
+    for (xpath_node i:nodeSet) {
         if (string(i.node().attribute("id").value())
                     .find("compiler.option.definedsymbols")
             != string::npos) {
@@ -42,8 +42,8 @@ int prjCube::FindDefinedsymbols() {
     return 0;
 }
 int prjCube::FindIncludePaths() {
-    xpath_node_set def = doc.select_nodes("//tool/option");
-    for (xpath_node i:def) {
+    xpath_node_set nodeSet = doc.select_nodes("//tool/option");
+    for (xpath_node i:nodeSet) {
         if (string(i.node().attribute("id").value())
                     .find("compiler.option.includepaths")
             != string::npos) {
@@ -59,19 +59,19 @@ int prjCube::FindIncludePaths() {
 }
 int prjCube::FindSourseItems() {
     set<string> sourceEntries;
-    xpath_node_set def = doc.select_nodes("//configuration/sourceEntries/entry");
-    for (xpath_node i:def) {
+    xpath_node_set nodeSet = doc.select_nodes("//configuration/sourceEntries/entry");
+    for (xpath_node i:nodeSet) {
         LOG_INFO << i.node().attribute("name").value();
         sourceEntries.insert(i.node().attribute("name").value());
     }
     vector<string> files;
     for (const auto& i:sourceEntries) {
-        listFiles(path + i, files);
+        listFiles(pathPrj + i, files);
     }
 
     for (const auto& i:files) {
         LOG_INFO << i;
-        srcItems.insert(i.substr(path.size()));
+        srcItems.insert(i.substr(pathPrj.size()));
     }
     return 0;
 }
@@ -81,11 +81,10 @@ bool prjCube::detect(const std::string &file) {
     } else {
         return false;
     }
-    int a = file.find_last_of('\\');
-    int b = file.find_last_of('/');
-//    int c = path.find_last_of('.');
-    a = _Max_value(a, b);
-    std::string path = file.substr(0, a + 1);//包含最后的那个'/'
+    int length_a = file.find_last_of('\\');
+    int length_b = file.find_last_of('/');
+    length_a = _Max_value(length_a, length_b);
+    std::string path = file.substr(0, length_a + 1);//包含最后的那个'/'
     LOG_INFO << path;
     std::string project = path + ".project";
     xml_document doc;

@@ -2,11 +2,11 @@
 #define VSPG_PGVS_H
 #include "pg.h"
 
-class pgvs : public pg {
+class pgVS : public pg {
 public:
-    ~pgvs() {};
-    pgvs(prj_ptr &ptr,const std::string &exe_path) : pg(ptr,exe_path) {};
-    int Generate();
+    ~pgVS() {};
+    pgVS(prj_ptr &ptr, const std::string &exe_path) : pg(ptr, exe_path) {};
+    int Generate() override;
     int slnGenerate(void);
     int vcxprojGenerate(void);
     int filtersGenerate(void);

@@ -5,7 +5,7 @@
 #include "error.h"
 #include <filesystem>
 
-pg::login loginCode("vs",
+pg::login loginCode("vscode",
                   [](prj_ptr &ptr, const std::string &exe_path) {
                       return new pgVSCode(ptr, exe_path);
                   }
@@ -15,14 +15,14 @@ int pgVSCode::Generate() {
 #if defined(__linux__)
     fin.open(path_exe + resource + "c_cpp_properties_linux.json");
 #else
-    fin.open(path_exe + resource + "c_cpp_properties_win32.json");
+    fin.open(pathExe + resource + "c_cpp_properties_win32.json");
 #endif
-    std::filesystem::path fout_path(prjPtr->path + ".vscode/");
+    std::filesystem::path fout_path(prjPtr->pathPrj + ".vscode/");
     if (!std::filesystem::exists(fout_path)) {
         std::filesystem::create_directory(fout_path);
     }
 
-    std::ofstream fout(prjPtr->path + ".vscode/" + "c_cpp_properties.json");
+    std::ofstream fout(prjPtr->pathPrj + ".vscode/" + "c_cpp_properties.json");
     std::stringstream ssContent;
     neb::CJsonObject oJson;
     if (!fin.is_open()) {

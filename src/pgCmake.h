@@ -6,7 +6,7 @@ class pgCmake : public pg{
 public:
     ~pgCmake() {};
     pgCmake(prj_ptr &ptr,const std::string &exe_path) : pg(ptr,exe_path) {};
-    int Generate();
+    int Generate() override;
 };
 
 

@@ -10,15 +10,15 @@
 class pg {
 protected:
     prj_ptr prjPtr;
-    std::string path_exe;//包括最后的/
+    std::string pathExe;//包括最后的/
 public:
     virtual ~pg() {};
-    pg(prj_ptr &ptr, std::string exe_path);
+    pg(prj_ptr &ptr, std::string _pathExe);
     virtual int Generate();
 
 public:
     constexpr const static char resource[] = "resource/";
-    static int Generate(const std::string &_type, prj_ptr &ptr, const std::string &exe_path);
+    static int Generate(const std::string &_type, prj_ptr &ptr, const std::string &_pathExe);
     static cmdline::oneof_reader<std::string> oneof_string();
 
     class login {

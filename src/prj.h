@@ -20,15 +20,15 @@ public:
     virtual int FindDefinedsymbols() = 0;
     virtual int FindIncludePaths() = 0;
     virtual int FindSourseItems() = 0;
-    virtual int FindGroup();
+    virtual int FindGroups();
     virtual int Find();
 public:
     std::set<std::string> definedsymbols;//预处理器定义
     std::set<std::string> includePaths;//include目录
     std::set<std::string> srcItems;//源文件
-    std::set<std::string> srcGroup;//源文件分组//中间变量
-    std::string path;//项目的路径，包含最后的/
-    std::string prj_name;//项目名称
+    std::set<std::string> srcGroups;//源文件分组//中间变量
+    std::string pathPrj;//项目的路径，包含最后的/
+    std::string prjName;//项目名称
 };
 
 class prj_ptr : public std::shared_ptr<prj> {

@@ -13,26 +13,26 @@ prjMDK::prjMDK(const std::string &file) {
         throw ERROR("not support");
     }
     definedsymbols.insert("__CC_ARM");
-    int a = file.find_last_of('\\');
-    int b = file.find_last_of('/');
-    a = _Max_value(a, b);
-    path = file.substr(0, a + 1);//包含最后的那个'/'
-    LOG_INFO << path;
+    int length_a = file.find_last_of('\\');
+    int length_b = file.find_last_of('/');
+    length_a = _Max_value(length_a, length_b);
+    pathPrj = file.substr(0, length_a + 1);//包含最后的那个'/'
+    LOG_INFO << pathPrj;
     uvproj = file;
     if (!doc.load_file(uvproj.c_str())) {
         throw ERROR("fail to open the file");
     }
     for (auto i:doc.child("Project").child("Targets").child("Target").child("TargetName")) {
         LOG_INFO << i.value();
-        prj_name = i.value();
+        prjName = i.value();
     }
 
 }
 int prjMDK::FindDefinedsymbols() {
     string define;
     string inc;
-    xpath_node_set def = doc.select_nodes("//Target/TargetOption/TargetArmAds/Cads/VariousControls");
-    for (auto i:def) {
+    xpath_node_set nodeSet = doc.select_nodes("//Target/TargetOption/TargetArmAds/Cads/VariousControls");
+    for (auto i:nodeSet) {
         define = i.node().child("Define").text().get();
         inc = i.node().child("IncludePath").text().get();
         LOG_INFO << define;
@@ -59,8 +59,8 @@ int prjMDK::FindIncludePaths() {
 }
 int prjMDK::FindSourseItems() {
     string str;
-    xpath_node_set def = doc.select_nodes("//Files/File/FilePath");
-    for (auto i:def) {
+    xpath_node_set nodeSet = doc.select_nodes("//Files/File/FilePath");
+    for (auto i:nodeSet) {
         str = i.node().text().get();
         LOG_INFO << str;
         srcItems.insert(str);
