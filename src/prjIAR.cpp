@@ -24,7 +24,7 @@ prjIAR::prjIAR(const std::string &file) {
     LOG_INFO << pathPrj;
     ewp = file.substr(0, file.find_last_of('.')) + ".ewp";
     LOG_INFO << ewp;
-    if (doc.load_file(ewp.c_str())) {
+    if (!doc.load_file(ewp.c_str())) {
         throw ERROR("fail to open the file");
     }
     for (auto i:doc.child("project").child("configuration").child("name")) {
@@ -47,14 +47,14 @@ int prjIAR::FindDefinedsymbols() {
 }
 int prjIAR::FindIncludePaths() {
     string str;
-    constexpr const char *Text = "$PROJ_DIR$/";
     xpath_node_set nodeSet = doc.select_nodes("//configuration/settings/data/option");
     for (auto i:nodeSet) {
         LOG_INFO << i.node().child("name").text().get();
         if (string(i.node().child("name").text().get()) == "CCIncludePath2") {
             for (auto j:i.node().select_nodes("state")) {
                 str = j.node().text().get();
-                str = str.substr(strlen(Text), str.size() - strlen(Text));
+                REPLACE_CHAR(str);
+                replace_str(str,"$PROJ_DIR$/","");
                 LOG_INFO << str;
                 includePaths.insert(str);
             }
@@ -64,11 +64,11 @@ int prjIAR::FindIncludePaths() {
 }
 int prjIAR::FindSourseItems() {
     string str;
-    constexpr const char *Text = "$PROJ_DIR$/";
     xpath_node_set nodeSet = doc.select_nodes("//group/file/name");
     for (auto i:nodeSet) {
         str = i.node().text().get();
-        str = str.substr(strlen(Text), str.size() - strlen(Text));
+        REPLACE_CHAR(str);
+        replace_str(str,"$PROJ_DIR$/","");
         LOG_INFO << str;
         srcItems.insert(str);
     }
