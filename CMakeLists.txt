@@ -3,23 +3,8 @@ project(vspg)
 
 set(CMAKE_CXX_STANDARD 17)
 #SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-set(CMAKE_C_FLAGS_RELEASE  "${CMAKE_C_FLAGS_RELEASE} -Os -DNDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} -Os -DNDEBUG")
-link_directories(pugixml/src)
-add_library(pugixml pugixml/src/pugixml.cpp)
-link_libraries(pugixml)
-
-link_directories(NanoLog)
-add_library(NanoLog NanoLog/NanoLog.cpp)
-link_libraries(NanoLog)
-
-link_directories(tinyxml2)
-add_library(tinyxml2 tinyxml2/tinyxml2.cpp)
-link_libraries(tinyxml2)
-
-link_directories(CJsonObject)
-add_library(CJsonObject CJsonObject/cJSON.c CJsonObject/CJsonObject.cpp)
-link_libraries(CJsonObject)
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Os -DNDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Os -DNDEBUG")
 
 include_directories(pugixml/src)
 include_directories(src)
@@ -28,11 +13,25 @@ include_directories(NanoLog)
 include_directories(tinyxml2)
 include_directories(CJsonObject)
 
-add_executable(vspg src/main.cpp
+add_library(libpugixml pugixml/src/pugixml.cpp)
+link_libraries(libpugixml)
+
+add_library(libNanoLog NanoLog/NanoLog.cpp)
+link_libraries(libNanoLog)
+
+add_library(libtinyxml2 tinyxml2/tinyxml2.cpp)
+link_libraries(libtinyxml2)
+
+add_library(libCJsonObject CJsonObject/cJSON.c CJsonObject/CJsonObject.cpp)
+link_libraries(libCJsonObject)
+
+add_library(libvspg src/vspg.cpp src/error.cpp
         src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp src/prjIAR.cpp src/prjMDK.cpp
-        src/pg.cpp src/pgVS.cpp src/pgCmake.cpp src/pgVSCode.cpp
-        src/error.cpp
-        )
+        src/pg.cpp src/pgVS.cpp src/pgCmake.cpp src/pgVSCode.cpp)
+link_libraries(libvspg)
+
+add_executable(vspg src/main.cpp)
+add_executable(test test/test.cpp)
 
 if (WIN32)
     set(EWS_APP_NAME vspg)
