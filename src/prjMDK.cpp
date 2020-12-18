@@ -15,6 +15,7 @@ prjMDK::prjMDK(const std::string &file) {
     definedsymbols.insert("__CC_ARM");
     int length_a = file.find_last_of('\\');
     int length_b = file.find_last_of('/');
+    int length_c = file.find_last_of('.');
     length_a = _Max_value(length_a, length_b);
     pathPrj = file.substr(0, length_a + 1);//包含最后的那个'/'
     LOG_INFO << pathPrj;
@@ -22,10 +23,8 @@ prjMDK::prjMDK(const std::string &file) {
     if (!doc.load_file(uvproj.c_str())) {
         throw ERROR("fail to open the file");
     }
-    for (auto i:doc.child("Project").child("Targets").child("Target").child("TargetName")) {
-        LOG_INFO << i.value();
-        prjName = i.value();
-    }
+    prjName = file.substr(length_a + 1, length_c - length_a - 1);
+    LOG_INFO << prjName;
 
 }
 int prjMDK::FindDefinedsymbols() {
