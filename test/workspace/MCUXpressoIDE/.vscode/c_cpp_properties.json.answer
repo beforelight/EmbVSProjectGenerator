@@ -1,0 +1,13 @@
+{
+	"configurations":	[{
+			"name":	"Win32",
+			"includePath":	["${workspaceFolder}/", "${workspaceFolder}/", "${workspaceFolder}/CMSIS", "${workspaceFolder}/board", "${workspaceFolder}/component/lists", "${workspaceFolder}/component/serial_manager", "${workspaceFolder}/component/uart", "${workspaceFolder}/device", "${workspaceFolder}/drivers", "${workspaceFolder}/source", "${workspaceFolder}/utilities", "${workspaceFolder}/xip"],
+			"defines":	["_DEBUG", "UNICODE", "_UNICODE", "CPU_MIMXRT1052DVL6B", "CPU_MIMXRT1052DVL6B_cm7", "CR_INTEGER_PRINTF", "DEBUG", "NDEBUG", "PRINTF_ADVANCED_ENABLE=0", "PRINTF_FLOAT_ENABLE=0", "SCANF_ADVANCED_ENABLE=0", "SCANF_FLOAT_ENABLE=0", "SDK_DEBUGCONSOLE=1", "SERIAL_PORT_TYPE_UART=1", "SKIP_SYSCLK_INIT", "XIP_BOOT_HEADER_DCD_ENABLE=1", "XIP_BOOT_HEADER_ENABLE=1", "XIP_EXTERNAL_FLASH=1", "__GNUC__", "__MCUXPRESSO", "__REDLIB__", "__USE_CMSIS"],
+			"windowsSdkVersion":	"10.0.18362.0",
+			"compilerPath":	"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe",
+			"cStandard":	"c17",
+			"cppStandard":	"c++17",
+			"intelliSenseMode":	"msvc-x86"
+		}],
+	"version":	4
+}
