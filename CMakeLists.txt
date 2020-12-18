@@ -25,13 +25,12 @@ link_libraries(libtinyxml2)
 add_library(libCJsonObject CJsonObject/cJSON.c CJsonObject/CJsonObject.cpp)
 link_libraries(libCJsonObject)
 
-add_library(libvspg src/vspg.cpp src/error.cpp
+set(src_vspg src/vspg.cpp src/error.cpp
         src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp src/prjIAR.cpp src/prjMDK.cpp
         src/pg.cpp src/pgVS.cpp src/pgCmake.cpp src/pgVSCode.cpp)
-link_libraries(libvspg)
 
-add_executable(vspg src/main.cpp)
-add_executable(test test/test.cpp)
+add_executable(vspg src/main.cpp ${src_vspg})
+add_executable(test test/test.cpp ${src_vspg})
 
 if (WIN32)
     set(EWS_APP_NAME vspg)

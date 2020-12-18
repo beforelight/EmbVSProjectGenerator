@@ -42,12 +42,16 @@ int main(int argc, char *argv[]) {
         cout << "********<<Compare result>>********" << endl;
         std::vector<std::string> Reacts = {
                 pathExe + "test/workspace/MCUXpressoIDE/CMakeLists.txt",
-                pathExe + "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.sln",
-                pathExe + "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.vcxproj",
-                pathExe + "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.vcxproj.filters",
-                pathExe + "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.vcxproj.user",
+//                pathExe + "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.sln",
+//                pathExe + "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.vcxproj",
+//                pathExe + "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.vcxproj.filters",
+//                pathExe + "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.vcxproj.user",
                 pathExe + "test/workspace/MCUXpressoIDE/.vscode/c_cpp_properties.json",
         };
+        cout << "********<<Warning>>********" << endl;
+        cout << "please check the \""
+             << pathExe
+             << "test/workspace/MCUXpressoIDE/evkbimxrt1050_hello_world.sln" << "\" yourself" << endl;
         std::vector<std::string> Answers = Reacts;
         for (int i = 0; i < Answers.size(); ++i) {
             Answers[i] += ".answer";
@@ -107,7 +111,7 @@ void no_match_op() {
 }
 
 bool file_match(std::string file1, std::string file2) {
-    int line=0;
+    int line = 0;
     std::ifstream f1(file1);
     std::ifstream f2(file2);
     if (!f1.is_open() || !f2.is_open()) {
@@ -116,11 +120,11 @@ bool file_match(std::string file1, std::string file2) {
     }
     std::string s1;
     std::string s2;
-    while(!f1.eof()&&!f2.eof()){
-        std::getline(f1,s1);
-        std::getline(f2,s2);
-        if(s1!=s2){
-            cout<<file1<<"&&"<<file2<<":Some difference in line"<<line<<endl;
+    while (!f1.eof() && !f2.eof()) {
+        std::getline(f1, s1);
+        std::getline(f2, s2);
+        if (s1 != s2) {
+            cout << file1 << "&&\r\n" << file2 << ":Some difference in line " << line << endl;
             return false;
         }
         ++line;
