@@ -1,15 +1,15 @@
 [submodule "pugixml"]
 	path = pugixml
-	url = https://github.com/zeux/pugixml.git
+	url = https://gitee.com/beforeligeht/pugixml.git
 [submodule "cmdline"]
 	path = cmdline
-	url = https://github.com/beforelight/cmdline.git
-[submodule "NanoLog"]
-	path = NanoLog
-	url = https://github.com/Iyengar111/NanoLog.git
+	url = https://gitee.com/beforeligeht/cmdline.git
 [submodule "tinyxml2"]
 	path = tinyxml2
-	url = https://github.com/leethomason/tinyxml2.git
+	url = https://gitee.com/beforeligeht/tinyxml2.git
+[submodule "NanoLog"]
+	path = NanoLog
+	url = https://gitee.com/beforeligeht/NanoLog.git
 [submodule "CJsonObject"]
 	path = CJsonObject
-	url = https://github.com/Bwar/CJsonObject.git
+	url = https://gitee.com/Bwar/CJsonObject.git
