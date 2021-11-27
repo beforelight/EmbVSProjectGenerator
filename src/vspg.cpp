@@ -28,7 +28,7 @@ int vspg(const std::vector<std::string> &args){
     //初始化log
 #ifdef WIN32
     //创建log所在的文件夹
-    filesystem::path pathLog("c:/temp/");
+    filesystem::path pathLog("./");
     if (!filesystem::exists(pathLog)) {
         filesystem::create_directory(pathLog);
     }

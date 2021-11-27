@@ -26,7 +26,7 @@ add_library(libCJsonObject CJsonObject/cJSON.c CJsonObject/CJsonObject.cpp)
 link_libraries(libCJsonObject)
 
 set(src_vspg src/vspg.cpp src/error.cpp
-        src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp src/prjIAR.cpp src/prjMDK.cpp src/prjCCS.cpp
+        src/prj.cpp src/prjCube.cpp src/prjMCUX.cpp src/prjIAR.cpp src/prjMDK.cpp src/prjCCS.cpp src/prjAurix.cpp
         src/pg.cpp src/pgVS.cpp src/pgCmake.cpp src/pgVSCode.cpp)
 
 add_executable(vspg src/main.cpp ${src_vspg})
