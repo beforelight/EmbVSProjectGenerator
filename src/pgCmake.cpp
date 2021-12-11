@@ -15,7 +15,9 @@ int pgCmake::Generate() {
     cmake << "cmake_minimum_required(VERSION 3.15)" << endl;
     cmake << "project(" << prjPtr->prjName << ")" << endl;
     for (const auto& i:prjPtr->definedsymbols) {
-        cmake << "add_definitions(-D" << i << ")" << endl;
+        if (!i.empty()) {
+            cmake << "add_definitions(-D" << i << ")" << endl;
+        }
     }
 
     for (auto i:prjPtr->includePaths) {
