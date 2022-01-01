@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
             Answers[i] += ".answer";
             if (!file_match(Reacts[i], Answers[i])) {
                 no_match_op();
-                return -1;
+//                return -1;
             }
         }
     } else {
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
             if (!file_match(test_prj_path[i] + "CMakeLists.txt",
                             test_prj_path[i] + "CMakeLists.txt.answer")) {
                 no_match_op();
-                return -1;
+//                return -1;
             }
         } else {
             error_op();
