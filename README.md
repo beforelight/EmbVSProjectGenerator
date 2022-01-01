@@ -17,14 +17,32 @@
 - Clion(CMake)
 
 #### 编译
-1.  git clone & git submodule init  
-2.  使用CMake编译
-3.  打包exe和resource文件夹
+1. git clone 
+   ```
+   git clone https://gitee.com/beforeligeht/EmbVSProjectGenerator.git vspg
+   cd vspg
+   git submodule update --init
+   ```
+   
+2. 使用CMake编译
+
+   ```
+   mkdir build
+   cd build
+   cmake -DCMAKE_BUILD_TYPE=Release .. 
+   cmake --build ./ --target vspg
+   ```
+
+3. 复制生成的exe到你想要的位置
 
 
 #### 使用说明
 
-使用exe打开项目相应的.cproject/.uvprojx/.ewp文件
+将项目相应的.cproject/.uvprojx/.ewp文件以此软件打开
+
+#### 下载
+
+[Releases · beforelight/EmbVSProjectGenerator (github.com)](https://github.com/beforelight/EmbVSProjectGenerator/releases)
 
 #### 参与贡献
 
