@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "tinyxml2.h"
+#include "resource.hpp"
 
 pg::login loginVS("vs",
                      [](prj_ptr &ptr, const std::string &exe_path) {
@@ -25,19 +26,18 @@ int pgVS::slnGenerate() {
     stringstream ss;
     string buf;
     ofstream sinNew(prjPtr->pathPrj + prjPtr->prjName + ".sln");
-    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.sln");
-
-    LOG_INFO<<".sin path:"<< prjPtr->pathPrj + prjPtr->prjName + ".sln";
-    LOG_INFO << ".sin path:" << pathExe + resource + "EmbProjectTemplate.sln";
-    if (!sinNew.is_open()
-        || !sinTemp.is_open()) {
+//    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.sln");
+    stringbuf sinTemp;
+    sinTemp.sputn((const char *) EmbProjectTemplate_sln, sizeof(EmbProjectTemplate_sln));
+    LOG_INFO << ".sin path:" << prjPtr->pathPrj + prjPtr->prjName + ".sln";
+//    LOG_INFO << ".sin path:" << pathExe + resource + "EmbProjectTemplate.sln";
+    if (!sinNew.is_open()) {
         throw ERROR("fail to open the file");
     }
-    ss << sinTemp.rdbuf();
+    ss << sinTemp.str();
     buf = ss.str();
     replace_str(buf, "EmbProjectTemplate", prjPtr->prjName);
     sinNew << buf;
-    sinTemp.close();
     sinNew.close();
     return 0;
 }
@@ -46,18 +46,18 @@ int pgVS::vcxprojGenerate() {
     stringstream ss;
     string buf;
     ofstream sinNew(prjPtr->pathPrj + prjPtr->prjName + ".vcxproj");
-    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj");
-    LOG_INFO<<".vcxproj path:"<< prjPtr->pathPrj + prjPtr->prjName + ".vcxproj";
-    LOG_INFO << ".vcxproj path:" << pathExe + resource + "EmbProjectTemplate.vcxproj";
-    if (!sinNew.is_open()
-        || !sinTemp.is_open()) {
+//    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj");
+    stringbuf sinTemp;
+    sinTemp.sputn((const char *) EmbProjectTemplate_vcxproj, sizeof(EmbProjectTemplate_vcxproj));
+    LOG_INFO << ".vcxproj path:" << prjPtr->pathPrj + prjPtr->prjName + ".vcxproj";
+//    LOG_INFO << ".vcxproj path:" << pathExe + resource + "EmbProjectTemplate.vcxproj";
+    if (!sinNew.is_open()) {
         throw ERROR("fail to open the file");
     }
-    ss << sinTemp.rdbuf();
+    ss << sinTemp.str();
     buf = ss.str();
     replace_str(buf, "EmbProjectTemplate", prjPtr->prjName);
     sinNew << buf;
-    sinTemp.close();
     sinNew.close();
 
     //进行xml修改
@@ -154,18 +154,18 @@ int pgVS::filtersGenerate() {
     stringstream ss;
     string buf;
     ofstream sinNew(prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.filters");
-    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj.filters");
-    LOG_INFO<<".vcxproj.filters path:"<< prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.filters";
-    LOG_INFO << ".vcxproj.filters path:" << pathExe + resource + "EmbProjectTemplate.vcxproj.filters";
-    if (!sinNew.is_open()
-        || !sinTemp.is_open()) {
+//    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj.filters");
+    stringbuf sinTemp;
+    sinTemp.sputn((const char *) EmbProjectTemplate_vcxproj_filters, sizeof(EmbProjectTemplate_vcxproj_filters));
+    LOG_INFO << ".vcxproj.filters path:" << prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.filters";
+//    LOG_INFO << ".vcxproj.filters path:" << pathExe + resource + "EmbProjectTemplate.vcxproj.filters";
+    if (!sinNew.is_open()) {
         throw ERROR("fail to open the file");
     }
-    ss << sinTemp.rdbuf();
+    ss << sinTemp.str();
     buf = ss.str();
     replace_str(buf, "EmbProjectTemplate", prjPtr->prjName);
     sinNew << buf;
-    sinTemp.close();
     sinNew.close();
 
     //进行xml修改
@@ -291,19 +291,19 @@ int pgVS::userGenerate() {
     stringstream ss;
     string buf;
     ofstream sinNew(prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.user");
-    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj.user");
+//    ifstream sinTemp(pathExe + resource + "EmbProjectTemplate.vcxproj.user");
+    stringbuf sinTemp;
+    sinTemp.sputn((const char *) EmbProjectTemplate_vcxproj_user, sizeof(EmbProjectTemplate_vcxproj_user));
 
-    LOG_INFO<<".vcxproj.user path:"<< prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.user";
-    LOG_INFO << ".vcxproj.user path:" << pathExe + resource + "EmbProjectTemplate.vcxproj.user";
-    if (!sinNew.is_open()
-        || !sinTemp.is_open()) {
+    LOG_INFO << ".vcxproj.user path:" << prjPtr->pathPrj + prjPtr->prjName + ".vcxproj.user";
+//    LOG_INFO << ".vcxproj.user path:" << pathExe + resource + "EmbProjectTemplate.vcxproj.user";
+    if (!sinNew.is_open()) {
         throw ERROR("fail to open the file");
     }
-    ss << sinTemp.rdbuf();
+    ss << sinTemp.str();
     buf = ss.str();
     replace_str(buf, "EmbProjectTemplate", prjPtr->prjName);
     sinNew << buf;
-    sinTemp.close();
     sinNew.close();
     return 0;
 }

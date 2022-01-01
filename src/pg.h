@@ -13,7 +13,7 @@ public:
     virtual int Generate();
 
 public:
-    constexpr const static char resource[] = "resource/";
+//    constexpr const static char resource[] = "resource/";
     static int Generate(const std::string &_type, prj_ptr &ptr, const std::string &_pathExe);
     static cmdline::oneof_reader<std::string> oneof_string();
 
