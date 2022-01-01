@@ -25,7 +25,8 @@ int pgCmake::Generate() {
     }
     cmake << "file(GLOB_RECURSE SOURCES ";
     for (auto i:prjPtr->srcGroups) {
-        cmake << '\t' << REPLACE_CHAR(i) << "/*.*";
+        cmake << '\t' << REPLACE_CHAR(i) << "/*.c";
+        cmake << '\t' << REPLACE_CHAR(i) << "/*.cpp";
     }
     cmake << ')' << endl;
     cmake << "add_executable(" << prjPtr->prjName << " ${SOURCES})" << endl;
